@@ -53,28 +53,9 @@ public class EventClassifier {
                                   double fGyroX3,
                                   double fGyroY3,
                                   double fGyroZ10,
-                                  double fMagnetX0, double fMagnetX1, double fMagnetX2, double fMagnetX3, double fMagnetX4,
-                                  double fMagnetX5, double fMagnetX6, double fMagnetX7, double fMagnetX8, double fMagnetX9,
-                                  double fMagnetX10, double fMagnetX11, double fMagnetX12, double fMagnetX13, double fMagnetX14,
-                                  double fMagnetX15, double fMagnetY0, double fMagnetY1, double fMagnetY2, double fMagnetY3,
-                                  double fMagnetY4, double fMagnetY5, double fMagnetY6, double fMagnetY7, double fMagnetY8,
-                                  double fMagnetY9, double fMagnetY10, double fMagnetY11, double fMagnetY12, double fMagnetY13,
-                                  double fMagnetY14, double fMagnetY15, double fMagnetZ0, double fMagnetZ1, double fMagnetZ2,
-                                  double fMagnetZ3, double fMagnetZ4, double fMagnetZ5, double fMagnetZ6, double fMagnetZ7,
-                                  double fMagnetZ8, double fMagnetZ9, double fMagnetZ10, double fMagnetZ11, double fMagnetZ12,
-                                  double fMagnetZ13, double fMagnetZ14, double fMagnetZ15, double fRotateX0, double fRotateX1,
-                                  double fRotateX2, double fRotateX3, double fRotateX4, double fRotateX5, double fRotateX6,
-                                  double fRotateX7, double fRotateX8, double fRotateX9, double fRotateX10, double fRotateX11,
-                                  double fRotateX12, double fRotateX13, double fRotateX14, double fRotateX15, double fRotateY0,
-                                  double fRotateY1, double fRotateY2, double fRotateY3, double fRotateY4, double fRotateY5,
-                                  double fRotateY6, double fRotateY7, double fRotateY8, double fRotateY9, double fRotateY10,
-                                  double fRotateY11, double fRotateY12, double fRotateY13, double fRotateY14, double fRotateY15,
-                                  double fRotateZ0, double fRotateZ1, double fRotateZ2, double fRotateZ3, double fRotateZ4,
-                                  double fRotateZ5, double fRotateZ6, double fRotateZ7, double fRotateZ8, double fRotateZ9,
-                                  double fRotateZ10, double fRotateZ11, double fRotateZ12, double fRotateZ13, double fRotateZ14,
-                                  double fRotateZ15, double varAccelX, double varAccelY, double varAccelZ, double varGyroX,
-                                  double varGyroY, double varGyroZ, double varMagnetX, double varMagnetY, double varMagnetZ,
-                                  double varRotateX, double varRotateY, double varRotateZ){
+                                  double varAccelY, double varAccelZ,
+                                  double varGyroY, double varGyroZ, double varMagnetY, double varMagnetZ,
+                                  double varRotateZ){
     	
     	String classification = "";
     	
