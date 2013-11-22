@@ -32,7 +32,6 @@ public class FeatureCalculations {
 
 
     public static String fileName;
-    public static double approach, entry, ignitionOn, ignitionOff, exit;
 
     //Arraylists to store mean, variance, FFT for each type of sensor
     public static ArrayList<Double>[] meanAccelList;
@@ -66,13 +65,8 @@ public class FeatureCalculations {
 
 
 
-    public FeatureCalculations(String fileName, double approach, double entry, double ignitionOn, double ignitionOff, double exit){
+    public FeatureCalculations(String fileName){
         this.fileName = fileName;
-        this.approach = approach;
-        this.entry = entry;
-        this.ignitionOn = ignitionOn;
-        this.ignitionOff = ignitionOff;
-        this.exit = exit;
     }
 
 
@@ -278,34 +272,34 @@ public class FeatureCalculations {
                             fourierMagnetList.get(j).get(k).get(i) + "," + fourierRotateList.get(j).get(k).get(i);
                 } 
             }
-            if(inAccelList[3].get(i) > (approach - 1) && 
-            	inAccelList[3].get(i) < (approach + 1) && 
-            	approach != -1){
-            	output += ", approach\n";
-            }
-            else if(inAccelList[3].get(i) > (entry - 1) && 
-                	inAccelList[3].get(i) < (entry + 1) && 
-                	entry != -1){
-            	output += ", entry\n";
-            }
-            else if(inAccelList[3].get(i) > (ignitionOn - 1) && 
-                	inAccelList[3].get(i) < (ignitionOn + 1) && 
-                	ignitionOn != -1){
-            	output += ", ignition on\n";
-            }
-            else if(inAccelList[3].get(i) > (ignitionOff - 1) && 
-                	inAccelList[3].get(i) < (ignitionOff + 1) && 
-                	ignitionOff != -1){
-            	output += ", ignition off\n";
-            }
-            else if(inAccelList[3].get(i) > (exit - 1) && 
-                	inAccelList[3].get(i) < (exit + 1) && 
-                	exit != -1){
-            	output += ", exit\n";
-            }
-            else{
-            	output += ", none\n";
-            }
+//            if(inAccelList[3].get(i) > (approach - 1) &&
+//            	inAccelList[3].get(i) < (approach + 1) &&
+//            	approach != -1){
+//            	output += ", approach\n";
+//            }
+//            else if(inAccelList[3].get(i) > (entry - 1) &&
+//                	inAccelList[3].get(i) < (entry + 1) &&
+//                	entry != -1){
+//            	output += ", entry\n";
+//            }
+//            else if(inAccelList[3].get(i) > (ignitionOn - 1) &&
+//                	inAccelList[3].get(i) < (ignitionOn + 1) &&
+//                	ignitionOn != -1){
+//            	output += ", ignition on\n";
+//            }
+//            else if(inAccelList[3].get(i) > (ignitionOff - 1) &&
+//                	inAccelList[3].get(i) < (ignitionOff + 1) &&
+//                	ignitionOff != -1){
+//            	output += ", ignition off\n";
+//            }
+//            else if(inAccelList[3].get(i) > (exit - 1) &&
+//                	inAccelList[3].get(i) < (exit + 1) &&
+//                	exit != -1){
+//            	output += ", exit\n";
+//            }
+//            else{
+//            	output += ", none\n";
+//            }
             
             wr.write(output);
         }

@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,10 +23,10 @@ public class DataProcessor {
     public static ArrayList<Integer> exit = new ArrayList<Integer>();
 
 
-    public static void main(String args[]){
+    public static void main(String args[]) throws IOException {
 
         String fileName;
-        double approach, entry, ignitionOn, ignitionOff, exit;
+        //double approach, entry, ignitionOn, ignitionOff, exit;
 
 
         Scanner scan;
@@ -31,7 +34,7 @@ public class DataProcessor {
 
         System.out.print("Please print the filename of input data: ");
         fileName = scan.next();
-        System.out.print("Please print the approach time of input data (-1 for none): ");
+        /*System.out.print("Please print the approach time of input data (-1 for none): ");
         approach = scan.nextDouble();
         System.out.print("Please print the entry time of input data (-1 for none): ");
         entry = scan.nextDouble();
@@ -40,25 +43,53 @@ public class DataProcessor {
         System.out.print("Please print the ignition off time of input data (-1 for none): ");
         ignitionOff = scan.nextDouble();
         System.out.print("Please print the exit time of input data (-1 for none): ");
-        exit = scan.nextDouble();
+        exit = scan.nextDouble();  */
 
-        FeatureCalculations fCalc = new FeatureCalculations(fileName, approach, entry, ignitionOn, ignitionOff, exit);
+        FeatureCalculations fCalc = new FeatureCalculations(fileName);
 
         classifications = fCalc.getClassifications();
         timestamps = fCalc.getTimestamps();
 
         int window = (FeatureCalculations.FPS/2);
 
+        //make window odd
         if(window % 2 == 0){
             window++;
         }
 
         filteredClassifications = ClassificationFilter.ModeFilter(classifications, window);
 
+        FileWriter fstream = new FileWriter("File_Classifications.csv");
+        BufferedWriter wr = new BufferedWriter(fstream);
+
+        String output;
+
+        output = "Filename,Approach Time,Entry Time,Ignition on,Ignition off,Exit Time";
+        wr.write(output);
+
+        output = fileName + "," + approach.get(0) + "," + entry.get(0) + "," + ignitionOn.get(0) + "," +
+                ignitionOff.get(0) + "," + exit.get(0);
+
+        wr.write(output);
+
+        wr.close();
+
     }
 
     public static boolean isClassificataionGood(ArrayList<String> classified){
 
+        boolean isGood = false;
+        findEventTimes(classified);
+
+        if(approach.size() == 1 && entry.size() == 1 && ignitionOn.size() == 1 && ignitionOff.size() == 1 && exit.size() == 1){
+            if(approach.get(0) < entry.get(0) && entry.get(0) < ignitionOn.get(0) && ignitionOn.get(0) < ignitionOff.get(0) &&
+            ignitionOff.get(0) < exit.get(0)){
+                isGood = true;
+            }
+
+        }
+
+        return isGood;
     }
 
     public static void findEventTimes(ArrayList<String> classified){
@@ -75,26 +106,25 @@ public class DataProcessor {
                 i++;
             }
 
-            if(currEvent.equals("approach")){
-                approach.add((int) Math.round(timestamps.get(i+(typeCount/2))));
+            if(currEvent.equals(DataUtils.APPROACH_EVENT)){
+                approach.add((int) Math.round(timestamps.get(i + (typeCount / 2))));
             }
 
-            else if(currEvent.equals("entry")){
+            else if(currEvent.equals(DataUtils.ENTER_EVENT)){
                 entry.add((int) Math.round(timestamps.get(i+(typeCount/2))));
             }
 
-            else if(currEvent.equals("ignition on")){
+            else if(currEvent.equals(DataUtils.ON_EVENT)){
                 ignitionOn.add((int) Math.round(timestamps.get(i+(typeCount/2))));
             }
 
-            else if(currEvent.equals("ignition off")){
+            else if(currEvent.equals(DataUtils.OFF_EVENT)){
                 ignitionOff.add((int) Math.round(timestamps.get(i+(typeCount/2))));
             }
 
-            else if(currEvent.equals("exit")){
+            else if(currEvent.equals(DataUtils.EXIT_EVENT)){
                 exit.add((int) Math.round(timestamps.get(i+(typeCount/2))));
             }
-
         }
     }
 }
