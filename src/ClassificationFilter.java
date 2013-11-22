@@ -21,22 +21,22 @@ public class ClassificationFilter {
 			exitCount = 0;
 			noneCount = 0;
 			for(int j = 0; j < window; j++){
-				if(classification.get(i+j-window/2).equals("approach")){
+				if(classification.get(i+j-window/2).equals(DataUtils.APPROACH_EVENT)){
 					approachCount++;
 				}
-				else if(classification.get(i+j-window/2).equals("entry")){
+				else if(classification.get(i+j-window/2).equals(DataUtils.ENTER_EVENT)){
 					entryCount++;
 				}
-				else if(classification.get(i+j-window/2).equals("ignition on")){
+				else if(classification.get(i+j-window/2).equals(DataUtils.ON_EVENT)){
 					onCount++;
 				}
-				else if(classification.get(i+j-window/2).equals("ignition off")){
+				else if(classification.get(i+j-window/2).equals(DataUtils.OFF_EVENT)){
 					offCount++;
 				}
-				else if(classification.get(i+j-window/2).equals("exit")){
+				else if(classification.get(i+j-window/2).equals(DataUtils.EXIT_EVENT)){
 					exitCount++;
 				}
-				else if(classification.get(i+j-window/2).equals("none")){
+				else if(classification.get(i+j-window/2).equals(DataUtils.NO_EVENT)){
 					noneCount++;
 				}
 			}
@@ -62,27 +62,27 @@ public class ClassificationFilter {
 		String maxClass;
 		int maxCount;
 		if(approachCount > entryCount){
-			maxClass = "approach";
+			maxClass = DataUtils.APPROACH_EVENT;
 			maxCount = approachCount;
 		}
 		else{
-			maxClass = "entry";
+			maxClass = DataUtils.ENTER_EVENT;
 			maxCount = entryCount;
 		}
 		if(maxCount <= onCount){
-			maxClass = "ignition on";
+			maxClass = DataUtils.ON_EVENT;
 			maxCount = onCount;
 		}
 		if(maxCount <= offCount){
-			maxClass = "ignition off";
+			maxClass = DataUtils.OFF_EVENT;
 			maxCount = offCount;
 		}
 		if(maxCount < exitCount){
-			maxClass = "exit";
+			maxClass = DataUtils.EXIT_EVENT;
 			maxCount = exitCount;
 		}
 		if(maxCount < noneCount){
-			maxClass = "none";
+			maxClass = DataUtils.NO_EVENT;
 			maxCount = noneCount;
 		}
 		return maxClass;
