@@ -41,21 +41,11 @@ public class EventClassifier {
     public static ArrayList<Double> currRotateWindow;
 
 
-    //rotate x y z is roll pitch yaw
     public static String Classify(double meanGyroY, double meanGyroZ, double meanMagnetX,double meanMagnetY, double meanMagnetZ,
-                                  double meanRotateY, double meanRotateZ,
-                                  double fAccelX2, double fAccelX4,
-                                  double fAccelX8,
-                                  double fAccelY0,
-                                  double fAccelY6,
-                                  double fAccelZ6,
-                                  double fGyroX0, double fGyroX1,
-                                  double fGyroX3,
-                                  double fGyroY3,
-                                  double fGyroZ10,
-                                  double varAccelY, double varAccelZ,
-                                  double varGyroY, double varGyroZ, double varMagnetY, double varMagnetZ,
-                                  double varRotateZ){
+                                  double meanRotateY, double meanRotateZ, double fAccelX2, double fAccelX4, double fAccelX8,
+                                  double fAccelY0, double fAccelY6, double fAccelZ6, double fGyroX0, double fGyroX1,
+                                  double fGyroX3, double fGyroY3, double fGyroZ10, double varAccelY, double varAccelZ,
+                                  double varGyroY, double varGyroZ, double varMagnetY, double varMagnetZ){
     	
     	String classification = "";
     	
