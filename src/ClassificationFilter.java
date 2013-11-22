@@ -4,7 +4,7 @@ public class ClassificationFilter {
 	/**
 	 * Smooths out noise of a classification array
 	 * @param classification - the arraylist of each frame's classification
-	 * @param window - an even integer of the filter's window size
+	 * @param window - an odd integer of the filter's window size
 	 * @return a smoothed arraylist containing each frame's classification
 	 */
 	public static ArrayList<String> ModeFilter(ArrayList<String> classification, int window){
