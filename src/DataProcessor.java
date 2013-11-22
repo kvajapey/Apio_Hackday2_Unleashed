@@ -59,20 +59,23 @@ public class DataProcessor {
 
         filteredClassifications = ClassificationFilter.ModeFilter(classifications, window);
 
-        FileWriter fstream = new FileWriter("File_Classifications.csv");
-        BufferedWriter wr = new BufferedWriter(fstream);
+        //if the file is good then write info to new file
+        if(isClassificataionGood(filteredClassifications)){
+            FileWriter fstream = new FileWriter("File_Classifications.csv");
+            BufferedWriter wr = new BufferedWriter(fstream);
 
-        String output;
+            String output;
 
-        output = "Filename,Approach Time,Entry Time,Ignition on,Ignition off,Exit Time";
-        wr.write(output);
+            output = "Filename,Approach Time,Entry Time,Ignition on,Ignition off,Exit Time";
+            wr.write(output);
 
-        output = fileName + "," + approach.get(0) + "," + entry.get(0) + "," + ignitionOn.get(0) + "," +
-                ignitionOff.get(0) + "," + exit.get(0);
+            output = fileName + "," + approach.get(0) + "," + entry.get(0) + "," + ignitionOn.get(0) + "," +
+                    ignitionOff.get(0) + "," + exit.get(0);
 
-        wr.write(output);
+            wr.write(output);
 
-        wr.close();
+            wr.close();
+        }
 
     }
 
