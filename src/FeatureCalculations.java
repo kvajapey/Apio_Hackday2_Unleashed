@@ -62,6 +62,8 @@ public class FeatureCalculations {
     public static ArrayList<Double> currMagnetWindow;
     public static ArrayList<Double> currRotateWindow;
 
+    public static ArrayList<String> classifications;
+
 
 
     public FeatureCalculations(String fileName, double approach, double entry, double ignitionOn, double ignitionOff, double exit){
@@ -103,6 +105,9 @@ public class FeatureCalculations {
         currGyroWindow = new ArrayList<Double>();
         currMagnetWindow = new ArrayList<Double>();
         currRotateWindow = new ArrayList<Double>();
+
+        //arraylist of each classification of each timestamp
+        classifications = new ArrayList<String>();
 
         ReadFile reader = new ReadFile();
         Data rawData = (reader.readfile(fileName));
@@ -307,6 +312,14 @@ public class FeatureCalculations {
 
         wr.close();
 
+    }
+
+    public static ArrayList<String> getClassifications(){
+        return classifications;
+    }
+
+    public static ArrayList<Double> getTimestamps(){
+        return inAccelList[3];
     }
 
     public static double calcMean(ArrayList<Double> d){
