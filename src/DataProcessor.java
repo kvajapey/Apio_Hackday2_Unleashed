@@ -26,29 +26,17 @@ public class DataProcessor {
     public static void main(String args[]) throws IOException {
 
         String fileName;
-        //double approach, entry, ignitionOn, ignitionOff, exit;
-
 
         Scanner scan;
         scan = new Scanner(System.in);
 
         System.out.print("Please print the filename of input data: ");
         fileName = scan.next();
-        /*System.out.print("Please print the approach time of input data (-1 for none): ");
-        approach = scan.nextDouble();
-        System.out.print("Please print the entry time of input data (-1 for none): ");
-        entry = scan.nextDouble();
-        System.out.print("Please print the ignition on time of input data (-1 for none): ");
-        ignitionOn = scan.nextDouble();
-        System.out.print("Please print the ignition off time of input data (-1 for none): ");
-        ignitionOff = scan.nextDouble();
-        System.out.print("Please print the exit time of input data (-1 for none): ");
-        exit = scan.nextDouble();  */
 
-        FeatureCalculations fCalc = new FeatureCalculations(fileName);
+        FeatureCalculations.CalculateFeatures(fileName);
 
-        classifications = fCalc.getClassifications();
-        timestamps = fCalc.getTimestamps();
+        classifications = FeatureCalculations.getClassifications();
+        timestamps = FeatureCalculations.getTimestamps();
 
         int window = (FeatureCalculations.FPS/2);
 

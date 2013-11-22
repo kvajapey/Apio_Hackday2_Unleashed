@@ -29,10 +29,6 @@ public class FeatureCalculations {
         * 0 - roll, 1 - pitch, 2 - yaw
         */
 
-
-
-    public static String fileName;
-
     //Arraylists to store mean, variance, FFT for each type of sensor
     public static ArrayList<Double>[] meanAccelList;
     public static ArrayList<Double> meanGyroList[];
@@ -63,14 +59,7 @@ public class FeatureCalculations {
 
     public static ArrayList<String> classifications;
 
-
-
-    public FeatureCalculations(String fileName){
-        this.fileName = fileName;
-    }
-
-
-    public static void CalculateFeatures() throws IOException{
+    public static void CalculateFeatures(String fileName) throws IOException{
 
         //Arraylists to store mean, variance, FFT for each type of sensor
         meanAccelList = new ArrayList[numDirections];
@@ -225,39 +214,7 @@ public class FeatureCalculations {
 
         }
 
-        FileWriter fstream = new FileWriter(fileName.substring(0, fileName.lastIndexOf('.')) + ".csv");
-        BufferedWriter wr = new BufferedWriter(fstream);
-
         String output;
-
-        //print to CSV -> timestamp, meanaccelx, meangyrox, meanmagnetx, meanrotatex, varaccelx, vargyrox, varmagnetx, varrotatex,
-        // fourieracclx 1-16, fouriergyrox 1-16, fouriermagnetx 1-16, fourierrotatex 1-16,
-        //meanaccely, meangyroy, meanmagnety, meanrotatey, varaccely, vargyroy, varmagnety, varrotatey,
-        // fourieraccly 1-16, fouriergyroy 1-16, fouriermagnety 1-16, fourierrotatey 1-16,
-        //meanaccelz, meangyroz, meanmagnetz, meanrotatez, varaccelz, vargyroz, varmagnetz, varrotatez,
-        // fourieracclz 1-16, fouriergyroz 1-16, fouriermagnetz 1-16, fourierrotatez 1-16,
-
-        output = "TimeStamp, Mean Accel X, Mean Gyro X, Mean Magnet X, Mean Roll, Variance Accel X, Variance Gyro X," +
-                "Variance Magnet X, Variance Roll,";
-        for(i = 0; i < maxFreq; i++){
-            output += "FFT Accel X" + i + "," + "FFT Gyro X" + i + "," + "FFT Magnet X" + i + "," + "FFT Roll" + i + ",";
-        } 
-
-        output += "Mean Accel Y, Mean Gyro Y, Mean Magnet Y, Mean Pitch, Variance Accel Y, Variance Gyro Y," +
-                "Variance Magnet Y, Variance Pitch,";
-        for(i = 0; i < maxFreq; i++){
-            output += "FFT Accel Y" + i + "," + "FFT Gyro Y" + i + "," + "FFT Magnet Y" + i + "," + "FFT Pitch" + i + ",";
-        } 
-
-        output += "Mean Accel Z, Mean Gyro Z, Mean Magnet Z, Mean Yaw, Variance Accel Z, Variance Gyro Z," +
-                "Variance Magnet Z, Variance Yaw,";
-        for(i = 0; i < maxFreq; i++){
-            output += "FFT Accel Z" + i + "," + "FFT Gyro Z" + i + "," + "FFT Magnet Z" + i + "," + "FFT Yaw" + i + ",";
-        }
-
-        output += "classification\n";
-
-        wr.write(output);
 
         timeLength = meanGyroList[0].size();
 
@@ -272,40 +229,7 @@ public class FeatureCalculations {
                             fourierMagnetList.get(j).get(k).get(i) + "," + fourierRotateList.get(j).get(k).get(i);
                 } 
             }
-//            if(inAccelList[3].get(i) > (approach - 1) &&
-//            	inAccelList[3].get(i) < (approach + 1) &&
-//            	approach != -1){
-//            	output += ", approach\n";
-//            }
-//            else if(inAccelList[3].get(i) > (entry - 1) &&
-//                	inAccelList[3].get(i) < (entry + 1) &&
-//                	entry != -1){
-//            	output += ", entry\n";
-//            }
-//            else if(inAccelList[3].get(i) > (ignitionOn - 1) &&
-//                	inAccelList[3].get(i) < (ignitionOn + 1) &&
-//                	ignitionOn != -1){
-//            	output += ", ignition on\n";
-//            }
-//            else if(inAccelList[3].get(i) > (ignitionOff - 1) &&
-//                	inAccelList[3].get(i) < (ignitionOff + 1) &&
-//                	ignitionOff != -1){
-//            	output += ", ignition off\n";
-//            }
-//            else if(inAccelList[3].get(i) > (exit - 1) &&
-//                	inAccelList[3].get(i) < (exit + 1) &&
-//                	exit != -1){
-//            	output += ", exit\n";
-//            }
-//            else{
-//            	output += ", none\n";
-//            }
-            
-            wr.write(output);
         }
-
-        wr.close();
-
     }
 
     public static ArrayList<String> getClassifications(){
