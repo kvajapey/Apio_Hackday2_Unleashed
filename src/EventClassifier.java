@@ -42,27 +42,17 @@ public class EventClassifier {
 
 
     //rotate x y z is roll pitch yaw
-    public static String Classify(double meanAccelX, double meanAccelY, double meanAccelZ, double meanGyroX,
-                                  double meanGyroY, double meanGyroZ, double meanMagnetX,double meanMagnetY, double meanMagnetZ,
-                                  double meanRotateX, double meanRotateY, double meanRotateZ, double fAccelX0,
-                                  double fAccelX1, double fAccelX2, double fAccelX3, double fAccelX4, double fAccelX5,
-                                  double fAccelX6, double fAccelX7, double fAccelX8, double fAccelX9, double fAccelX10,
-                                  double fAccelX11, double fAccelX12, double fAccelX13, double fAccelX14, double fAccelX15,
-                                  double fAccelY0, double fAccelY1, double fAccelY2, double fAccelY3, double fAccelY4,
-                                  double fAccelY5, double fAccelY6, double fAccelY7, double fAccelY8, double fAccelY9,
-                                  double fAccelY10, double fAccelY11, double fAccelY12, double fAccelY13, double fAccelY14,
-                                  double fAccelY15, double fAccelZ0, double fAccelZ1, double fAccelZ2, double fAccelZ3,
-                                  double fAccelZ4, double fAccelZ5, double fAccelZ6, double fAccelZ7, double fAccelZ8,
-                                  double fAccelZ9, double fAccelZ10, double fAccelZ11, double fAccelZ12, double fAccelZ13,
-                                  double fAccelZ14, double fAccelZ15, double fGyroX0, double fGyroX1, double fGyroX2,
-                                  double fGyroX3, double fGyroX4, double fGyroX5, double fGyroX6, double fGyroX7, double fGyroX8,
-                                  double fGyroX9, double fGyroX10, double fGyroX11, double fGyroX12, double fGyroX13, double fGyroX14,
-                                  double fGyroX15, double fGyroY0, double fGyroY1, double fGyroY2, double fGyroY3, double fGyroY4,
-                                  double fGyroY5, double fGyroY6, double fGyroY7, double fGyroY8, double fGyroY9,
-                                  double fGyroY10, double fGyroY11, double fGyroY12, double fGyroY13, double fGyroY14,
-                                  double fGyroY15, double fGyroZ0, double fGyroZ1, double fGyroZ2, double fGyroZ3, double fGyroZ4,
-                                  double fGyroZ5, double fGyroZ6, double fGyroZ7, double fGyroZ8, double fGyroZ9, double fGyroZ10,
-                                  double fGyroZ11, double fGyroZ12, double fGyroZ13, double fGyroZ14, double fGyroZ15,
+    public static String Classify(double meanGyroY, double meanGyroZ, double meanMagnetX,double meanMagnetY, double meanMagnetZ,
+                                  double meanRotateY, double meanRotateZ,
+                                  double fAccelX2, double fAccelX4,
+                                  double fAccelX8,
+                                  double fAccelY0,
+                                  double fAccelY6,
+                                  double fAccelZ6,
+                                  double fGyroX0, double fGyroX1,
+                                  double fGyroX3,
+                                  double fGyroY3,
+                                  double fGyroZ10,
                                   double fMagnetX0, double fMagnetX1, double fMagnetX2, double fMagnetX3, double fMagnetX4,
                                   double fMagnetX5, double fMagnetX6, double fMagnetX7, double fMagnetX8, double fMagnetX9,
                                   double fMagnetX10, double fMagnetX11, double fMagnetX12, double fMagnetX13, double fMagnetX14,
@@ -87,139 +77,165 @@ public class EventClassifier {
                                   double varRotateX, double varRotateY, double varRotateZ){
     	
     	String classification = "";
-    			 if(meanGyroZ <= 0.194623){
-    			    if(meanGyroY <= -0.101792){
-    			    	if(meanRotateZ <= 0.095252){
-    			    		if(varAccelZ <= 0.003763){
-    			    			classification =  "entry";
-    			    		}
-    			    		if(varAccelZ > 0.003763){
-    			    			if(fAccelX8 <= 0.498985){
-    			    				classification = "none";
-    			    			}
-    			    			else{
-    			    				classification = "entry";
-    			    			}
-    			    		}
-    			    	}
-    			    	if(meanRotateZ > 0.095252){
-    			    		if(meanRotateZ <= 0.597347){
-    			    			classification = "ignition off";
-    			    		}
-    			    		else{
-    			    			classification = "none";
-    			    		}
-    			    	}
-    			     }
+    	
+    	if(meanGyroZ <= 0.194623){
+    		if(meanGyroY <= -0.101792){
+    			if(meanRotateZ <= 0.095252){
+    				if(varAccelZ <= 0.003763){
+    					classification = DataUtils.ENTER_EVENT;
+    				}
     				else{
-    					if(varMagnetZ <= 0.219706){
-    						if(meanMagnetZ <= 8.375016){
-    							if(varGyroY <= 0.003047){
-    								if(fAccelX4 <= 0.049607){
-    									if(fGyroZ10 <= 0.035395){
-    										if(meanMagnetZ <= 0.498086){
-    											classification = "none";
+    					if(fAccelX8 <= 0.498985){
+    						classification = DataUtils.NO_EVENT;
+    					}
+    					else{
+    						classification = DataUtils.ENTER_EVENT;
+    					}
+    				}
+    			}
+    			else{
+    				if(meanRotateZ <= 0.597347){
+    					classification = DataUtils.OFF_EVENT;
+    				}
+    				else{
+    					classification = DataUtils.NO_EVENT;
+    				}
+    			}
+    		}
+    		else{
+    			if(varMagnetZ <= 0.219706){
+    				if(meanMagnetZ <= 8.375016){
+    					if(varGyroY <= 0.003047){
+    						if(fAccelX4 <= 0.049607){
+    							if(fGyroZ10 <= 0.035395){
+    								if(meanMagnetZ <= 0.498086){
+    									classification = DataUtils.NO_EVENT;
+    								}
+    								else{
+    									if(meanMagnetX <= 0.258174){
+    										if(fGyroX1 <= 0.019404){
+    											classification = DataUtils.NO_EVENT;
     										}
     										else{
-    											if(meanMagnetX <= 0.258174){
-    												if(fGyroX1 <= 0.019404){
-    													classification = "none";
-    												}
-    												else{
-    													classification = "ignition on";
-    												}
-    											}
-    											else{
-    												classification = "none";
-    											}
+    											classification = DataUtils.ON_EVENT;
     										}
     									}
     									else{
-    										classification = "none";
+    										classification = DataUtils.NO_EVENT;
     									}
-    								}
-    								else{
-    									classification = "ignition on";
     								}
     							}
     							else{
-    								classification = "none";
+    								classification = DataUtils.NO_EVENT;
     							}
     						}
     						else{
-    							classification = "ignition off";
+    							classification = DataUtils.ON_EVENT;
     						}
     					}
-    			|   |   Variance Magnet Z > 0.219706
-    			|   |   |   FFT Gyro Y3 <= 25.325398
-    			|   |   |   |   FFT Accel Z0 <= 0.226009
-    			|   |   |   |   |   TimeStamp <= 89.107
-    			|   |   |   |   |   |   Variance Magnet Y <= 12.802869
-    			|   |   |   |   |   |   |   FFT Gyro X2 <= 7.408758:  none (1573.0/46.0)
-    			|   |   |   |   |   |   |   FFT Gyro X2 > 7.408758
-    			|   |   |   |   |   |   |   |   TimeStamp <= 59.426:  none (83.0/1.0)
-    			|   |   |   |   |   |   |   |   TimeStamp > 59.426:  ignition on (93.0/35.0)
-    			|   |   |   |   |   |   Variance Magnet Y > 12.802869
-    			|   |   |   |   |   |   |    Mean Roll <= 0.021415:  entry (100.0/56.0)
-    			|   |   |   |   |   |   |    Mean Roll > 0.021415:  none (79.0)
-    			|   |   |   |   |   TimeStamp > 89.107
-    			|   |   |   |   |   |    Mean Roll <= 0.014129
-    			|   |   |   |   |   |   |   FFT Accel Y3 <= 0.012517:  none (61.0/3.0)
-    			|   |   |   |   |   |   |   FFT Accel Y3 > 0.012517:  ignition off (78.0/21.0)
-    			|   |   |   |   |   |    Mean Roll > 0.014129:  none (73.0)
-    			|   |   |   |   FFT Accel Z0 > 0.226009
-    			|   |   |   |   |   TimeStamp <= 52.501
-    			|   |   |   |   |   |   TimeStamp <= 47.558
-    			|   |   |   |   |   |   |    Variance Accel Z <= 0.029882:  none (2392.0/33.0)
-    			|   |   |   |   |   |   |    Variance Accel Z > 0.029882
-    			|   |   |   |   |   |   |   |   TimeStamp <= 7.497
-    			|   |   |   |   |   |   |   |   |    Mean Magnet Y <= 0.580754:  none (71.0)
-    			|   |   |   |   |   |   |   |   |    Mean Magnet Y > 0.580754:  approach (90.0/18.0)
-    			|   |   |   |   |   |   |   |   TimeStamp > 7.497:  none (120.0/4.0)
-    			|   |   |   |   |   |   TimeStamp > 47.558
-    			|   |   |   |   |   |   |    Mean Roll <= 0.05112
-    			|   |   |   |   |   |   |   |    Mean Magnet X <= 3.614566:  none (158.0/5.0)
-    			|   |   |   |   |   |   |   |    Mean Magnet X > 3.614566:  approach (85.0/41.0)
-    			|   |   |   |   |   |   |    Mean Roll > 0.05112:  approach (132.0/25.0)
-    			|   |   |   |   |   TimeStamp > 52.501:  none (2954.0/45.0)
-    			|   |   |   FFT Gyro Y3 > 25.325398
-    			|   |   |   |   FFT Accel Y6 <= 0.170844:  none (182.0/32.0)
-    			|   |   |   |   FFT Accel Y6 > 0.170844:  ignition on (65.0/21.0)
+    					else{
+    						classification = DataUtils.NO_EVENT;
+    					}
     				}
-    			 }
-    			 Mean Gyro Z > 0.194623
-    			|    Mean Yaw <= 0.857356
-    			|   |   TimeStamp <= 51.501:  none (379.0/44.0)
-    			|   |   TimeStamp > 51.501
-    			|   |   |    Variance Gyro Y <= 0.026237:  ignition off (81.0/16.0)
-    			|   |   |    Variance Gyro Y > 0.026237
-    			|   |   |   |    Mean Magnet Y <= -0.047374:  none (366.0/41.0)
-    			|   |   |   |    Mean Magnet Y > -0.047374
-    			|   |   |   |   |    Variance Gyro Z <= 0.114537:  ignition off (82.0/23.0)
-    			|   |   |   |   |    Variance Gyro Z > 0.114537:  none (314.0/90.0)
-    			|    Mean Yaw > 0.857356
-    			|   |    Variance Accel Y <= 0.003998:  none (266.0/1.0)
-    			|   |    Variance Accel Y > 0.003998
-    			|   |   |    Mean Magnet Z <= 5.698
-    			|   |   |   |    Mean Magnet Z <= -0.285576
-    			|   |   |   |   |   FFT Accel X2 <= 1.40773
-    			|   |   |   |   |   |   FFT Gyro X0 <= 77.108073
-    			|   |   |   |   |   |   |    Mean Yaw <= 2.729261
-    			|   |   |   |   |   |   |   |   FFT Gyro X3 <= 2.469406:  none (68.0/7.0)
-    			|   |   |   |   |   |   |   |   FFT Gyro X3 > 2.469406
-    			|   |   |   |   |   |   |   |   |    Variance Gyro Z <= 0.261348
-    			|   |   |   |   |   |   |   |   |   |   FFT Accel Z6 <= 0.131369:  exit (60.0/2.0)
-    			|   |   |   |   |   |   |   |   |   |   FFT Accel Z6 > 0.131369
-    			|   |   |   |   |   |   |   |   |   |   |   Variance Magnet Y <= 4.976276:  none (119.0/55.0)
-    			|   |   |   |   |   |   |   |   |   |   |   Variance Magnet Y > 4.976276:  exit (61.0/8.0)
-    			|   |   |   |   |   |   |   |   |    Variance Gyro Z > 0.261348:  none (70.0/14.0)
-    			|   |   |   |   |   |   |    Mean Yaw > 2.729261:  none (78.0/3.0)
-    			|   |   |   |   |   |   FFT Gyro X0 > 77.108073:  none (63.0)
-    			|   |   |   |   |   FFT Accel X2 > 1.40773:  none (107.0/1.0)
-    			|   |   |   |    Mean Magnet Z > -0.285576:  none (283.0/27.0)
-    			|   |   |    Mean Magnet Z > 5.698:  exit (74.0/21.0)
-
-    			
+    				else{
+    					classification = DataUtils.OFF_EVENT;
+    				}
+    			}
+    			else{
+    				if(fGyroY3 <= 25.325398){
+    					classification = DataUtils.NO_EVENT;
+    				}
+    				else{
+    					if(fAccelY6 <= 0.170844){
+    						classification = DataUtils.NO_EVENT;
+    					}
+    					else{
+    						classification = DataUtils.ON_EVENT;
+    					}
+    				}
+    			}
+    		}
+    	}
+    	else{
+    		if(meanRotateZ <= 0.857356){
+    			if(meanMagnetZ <= -19.455691){
+    				classification = DataUtils.NO_EVENT;
+    			}
+    			else{
+    				if(fAccelY0 <= 0.049148){
+    					classification = DataUtils.OFF_EVENT;
+    				}
+    				else{
+    					if(meanMagnetY <= 2.168877){
+    						classification = DataUtils.NO_EVENT;
+    					}
+    					else{
+    						if(meanRotateY <= 0.085565){
+    							classification = DataUtils.NO_EVENT;
+    						}
+    						else{
+    							classification = DataUtils.OFF_EVENT;
+    						}
+    					}
+    				}
+    			}
+    		}
+    		else{
+    			if(varAccelY <= 0.003998){
+    				classification = DataUtils.NO_EVENT;
+    			}
+    			else{
+    				if(meanMagnetZ <= 5.698){
+    					if(meanMagnetZ <= -0.285576){
+    						if(fAccelX2 <= 1.40773){
+    							if(fGyroX0 <= 77.108073){
+    								if(meanRotateZ <= 2.729261){
+    									if(fGyroX3 <= 2.469406){
+    										classification = DataUtils.NO_EVENT;
+    									}
+    									else{
+    										if(varGyroZ <= 0.261348){
+    											if(fAccelZ6 <= 0.131369){
+    												classification = DataUtils.EXIT_EVENT;
+    											}
+    											else{
+    												if(varMagnetY <= 4.976276){
+    													classification = DataUtils.NO_EVENT;
+    												}
+    												else{
+    													classification = DataUtils.EXIT_EVENT;
+    												}
+    											}
+    										}
+    										else{
+    											classification = DataUtils.NO_EVENT;
+    										}
+    									}
+    								}
+    								else{
+    									classification = DataUtils.NO_EVENT;
+    								}
+    							}
+    							else{
+    								classification = DataUtils.NO_EVENT;
+    							}
+    						}
+    						else{
+    							classification = DataUtils.NO_EVENT;
+    						}
+    					}
+    					else{
+    						classification = DataUtils.NO_EVENT;
+    					}
+    				}
+    				else{
+    					classification = DataUtils.EXIT_EVENT;
+    				}
+    			}
+    		}
+    	}
+    	
+    	
     	return classification;
     }
 
