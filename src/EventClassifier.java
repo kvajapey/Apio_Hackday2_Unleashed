@@ -41,7 +41,7 @@ public class EventClassifier {
     public static ArrayList<Double> currRotateWindow;
 
 
-
+    //rotate x y z is roll pitch yaw
     public static String Classify(double meanAccelX, double meanAccelY, double meanAccelZ, double meanGyroX,
                                   double meanGyroY, double meanGyroZ, double meanMagnetX,double meanMagnetY, double meanMagnetZ,
                                   double meanRotateX, double meanRotateY, double meanRotateZ, double fAccelX0,
@@ -85,7 +85,142 @@ public class EventClassifier {
                                   double fRotateZ15, double varAccelX, double varAccelY, double varAccelZ, double varGyroX,
                                   double varGyroY, double varGyroZ, double varMagnetX, double varMagnetY, double varMagnetZ,
                                   double varRotateX, double varRotateY, double varRotateZ){
+    	
+    	String classification = "";
+    			 if(meanGyroZ <= 0.194623){
+    			    if(meanGyroY <= -0.101792){
+    			    	if(meanRotateZ <= 0.095252){
+    			    		if(varAccelZ <= 0.003763){
+    			    			classification =  "entry";
+    			    		}
+    			    		if(varAccelZ > 0.003763){
+    			    			if(fAccelX8 <= 0.498985){
+    			    				classification = "none";
+    			    			}
+    			    			else{
+    			    				classification = "entry";
+    			    			}
+    			    		}
+    			    	}
+    			    	if(meanRotateZ > 0.095252){
+    			    		if(meanRotateZ <= 0.597347){
+    			    			classification = "ignition off";
+    			    		}
+    			    		else{
+    			    			classification = "none";
+    			    		}
+    			    	}
+    			     }
+    				else{
+    					if(varMagnetZ <= 0.219706){
+    						if(meanMagnetZ <= 8.375016){
+    							if(varGyroY <= 0.003047){
+    								if(fAccelX4 <= 0.049607){
+    									if(fGyroZ10 <= 0.035395){
+    										if(meanMagnetZ <= 0.498086){
+    											classification = "none";
+    										}
+    										else{
+    											if(meanMagnetX <= 0.258174){
+    												if(fGyroX1 <= 0.019404){
+    													classification = "none";
+    												}
+    												else{
+    													classification = "ignition on";
+    												}
+    											}
+    											else{
+    												classification = "none";
+    											}
+    										}
+    									}
+    									else{
+    										classification = "none";
+    									}
+    								}
+    								else{
+    									classification = "ignition on";
+    								}
+    							}
+    							else{
+    								classification = "none";
+    							}
+    						}
+    						else{
+    							classification = "ignition off";
+    						}
+    					}
+    			|   |   Variance Magnet Z > 0.219706
+    			|   |   |   FFT Gyro Y3 <= 25.325398
+    			|   |   |   |   FFT Accel Z0 <= 0.226009
+    			|   |   |   |   |   TimeStamp <= 89.107
+    			|   |   |   |   |   |   Variance Magnet Y <= 12.802869
+    			|   |   |   |   |   |   |   FFT Gyro X2 <= 7.408758:  none (1573.0/46.0)
+    			|   |   |   |   |   |   |   FFT Gyro X2 > 7.408758
+    			|   |   |   |   |   |   |   |   TimeStamp <= 59.426:  none (83.0/1.0)
+    			|   |   |   |   |   |   |   |   TimeStamp > 59.426:  ignition on (93.0/35.0)
+    			|   |   |   |   |   |   Variance Magnet Y > 12.802869
+    			|   |   |   |   |   |   |    Mean Roll <= 0.021415:  entry (100.0/56.0)
+    			|   |   |   |   |   |   |    Mean Roll > 0.021415:  none (79.0)
+    			|   |   |   |   |   TimeStamp > 89.107
+    			|   |   |   |   |   |    Mean Roll <= 0.014129
+    			|   |   |   |   |   |   |   FFT Accel Y3 <= 0.012517:  none (61.0/3.0)
+    			|   |   |   |   |   |   |   FFT Accel Y3 > 0.012517:  ignition off (78.0/21.0)
+    			|   |   |   |   |   |    Mean Roll > 0.014129:  none (73.0)
+    			|   |   |   |   FFT Accel Z0 > 0.226009
+    			|   |   |   |   |   TimeStamp <= 52.501
+    			|   |   |   |   |   |   TimeStamp <= 47.558
+    			|   |   |   |   |   |   |    Variance Accel Z <= 0.029882:  none (2392.0/33.0)
+    			|   |   |   |   |   |   |    Variance Accel Z > 0.029882
+    			|   |   |   |   |   |   |   |   TimeStamp <= 7.497
+    			|   |   |   |   |   |   |   |   |    Mean Magnet Y <= 0.580754:  none (71.0)
+    			|   |   |   |   |   |   |   |   |    Mean Magnet Y > 0.580754:  approach (90.0/18.0)
+    			|   |   |   |   |   |   |   |   TimeStamp > 7.497:  none (120.0/4.0)
+    			|   |   |   |   |   |   TimeStamp > 47.558
+    			|   |   |   |   |   |   |    Mean Roll <= 0.05112
+    			|   |   |   |   |   |   |   |    Mean Magnet X <= 3.614566:  none (158.0/5.0)
+    			|   |   |   |   |   |   |   |    Mean Magnet X > 3.614566:  approach (85.0/41.0)
+    			|   |   |   |   |   |   |    Mean Roll > 0.05112:  approach (132.0/25.0)
+    			|   |   |   |   |   TimeStamp > 52.501:  none (2954.0/45.0)
+    			|   |   |   FFT Gyro Y3 > 25.325398
+    			|   |   |   |   FFT Accel Y6 <= 0.170844:  none (182.0/32.0)
+    			|   |   |   |   FFT Accel Y6 > 0.170844:  ignition on (65.0/21.0)
+    				}
+    			 }
+    			 Mean Gyro Z > 0.194623
+    			|    Mean Yaw <= 0.857356
+    			|   |   TimeStamp <= 51.501:  none (379.0/44.0)
+    			|   |   TimeStamp > 51.501
+    			|   |   |    Variance Gyro Y <= 0.026237:  ignition off (81.0/16.0)
+    			|   |   |    Variance Gyro Y > 0.026237
+    			|   |   |   |    Mean Magnet Y <= -0.047374:  none (366.0/41.0)
+    			|   |   |   |    Mean Magnet Y > -0.047374
+    			|   |   |   |   |    Variance Gyro Z <= 0.114537:  ignition off (82.0/23.0)
+    			|   |   |   |   |    Variance Gyro Z > 0.114537:  none (314.0/90.0)
+    			|    Mean Yaw > 0.857356
+    			|   |    Variance Accel Y <= 0.003998:  none (266.0/1.0)
+    			|   |    Variance Accel Y > 0.003998
+    			|   |   |    Mean Magnet Z <= 5.698
+    			|   |   |   |    Mean Magnet Z <= -0.285576
+    			|   |   |   |   |   FFT Accel X2 <= 1.40773
+    			|   |   |   |   |   |   FFT Gyro X0 <= 77.108073
+    			|   |   |   |   |   |   |    Mean Yaw <= 2.729261
+    			|   |   |   |   |   |   |   |   FFT Gyro X3 <= 2.469406:  none (68.0/7.0)
+    			|   |   |   |   |   |   |   |   FFT Gyro X3 > 2.469406
+    			|   |   |   |   |   |   |   |   |    Variance Gyro Z <= 0.261348
+    			|   |   |   |   |   |   |   |   |   |   FFT Accel Z6 <= 0.131369:  exit (60.0/2.0)
+    			|   |   |   |   |   |   |   |   |   |   FFT Accel Z6 > 0.131369
+    			|   |   |   |   |   |   |   |   |   |   |   Variance Magnet Y <= 4.976276:  none (119.0/55.0)
+    			|   |   |   |   |   |   |   |   |   |   |   Variance Magnet Y > 4.976276:  exit (61.0/8.0)
+    			|   |   |   |   |   |   |   |   |    Variance Gyro Z > 0.261348:  none (70.0/14.0)
+    			|   |   |   |   |   |   |    Mean Yaw > 2.729261:  none (78.0/3.0)
+    			|   |   |   |   |   |   FFT Gyro X0 > 77.108073:  none (63.0)
+    			|   |   |   |   |   FFT Accel X2 > 1.40773:  none (107.0/1.0)
+    			|   |   |   |    Mean Magnet Z > -0.285576:  none (283.0/27.0)
+    			|   |   |    Mean Magnet Z > 5.698:  exit (74.0/21.0)
 
+    			
+    	return classification;
     }
 
 }
