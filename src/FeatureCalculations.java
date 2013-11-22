@@ -225,18 +225,20 @@ public class FeatureCalculations {
                     fourierAccelList.get(0).get(2).get(i), fourierAccelList.get(0).get(4).get(i), fourierAccelList.get(0).get(8).get(i),
                     fourierAccelList.get(1).get(0).get(i), fourierAccelList.get(1).get(6).get(i), fourierAccelList.get(2).get(6).get(i),
                     fourierGyroList.get(0).get(0).get(i), fourierGyroList.get(0).get(1).get(i), fourierGyroList.get(0).get(3).get(i),
-                    fourierGyroList.get(1).get(3).get(i), fourierGyroList.get(2).get(10).get(i), ));
+                    fourierGyroList.get(1).get(3).get(i), fourierGyroList.get(2).get(10).get(i), varAccelList[1].get(i),
+                    varAccelList[2].get(i), varGyroList[1].get(i), varGyroList[2].get(i), varMagnetList[1].get(i),
+                    varMagnetList[2].get(i)));
 
-            output = "" + inAccelList[3].get(i);
-            for(j = 0; j < numDirections; j++){
-                output += "," + meanAccelList[j].get(i) + "," + meanGyroList[j].get(i) + "," + meanMagnetList[j].get(i) +
-                        "," + meanRotateList[j].get(i) + "," + varAccelList[j].get(i) + "," + varGyroList[j].get(i) +
-                        "," + varMagnetList[j].get(i) + "," + varRotateList[j].get(i);
-                for(k = 0; k < maxFreq; k++){
-                    output += "," + fourierAccelList.get(j).get(k).get(i) + "," + fourierGyroList.get(j).get(k).get(i) + "," +
-                            fourierMagnetList.get(j).get(k).get(i) + "," + fourierRotateList.get(j).get(k).get(i);
-                } 
-            }
+//            output = "" + inAccelList[3].get(i);
+//            for(j = 0; j < numDirections; j++){
+//                output += "," + meanAccelList[j].get(i) + "," + meanGyroList[j].get(i) + "," + meanMagnetList[j].get(i) +
+//                        "," + meanRotateList[j].get(i) + "," + varAccelList[j].get(i) + "," + varGyroList[j].get(i) +
+//                        "," + varMagnetList[j].get(i) + "," + varRotateList[j].get(i);
+//                for(k = 0; k < maxFreq; k++){
+//                    output += "," + fourierAccelList.get(j).get(k).get(i) + "," + fourierGyroList.get(j).get(k).get(i) + "," +
+//                            fourierMagnetList.get(j).get(k).get(i) + "," + fourierRotateList.get(j).get(k).get(i);
+//                }
+//            }
         }
     }
 
