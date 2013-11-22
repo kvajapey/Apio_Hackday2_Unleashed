@@ -22,8 +22,6 @@ public class FeatureCalculations {
     //file name to pull raw data from
 
 
-    public static void main(String args[]) throws IOException {
-
         //test commit
 
         /*
@@ -31,65 +29,80 @@ public class FeatureCalculations {
         * 0 - roll, 1 - pitch, 2 - yaw
         */
 
-        Scanner scan;
-        scan = new Scanner(System.in);
 
-        String fileName;
-        double approach, entry, ignitionOn, ignitionOff, exit;
 
-        System.out.print("Please print the filename of input data: ");
-        fileName = scan.next();
-        System.out.print("Please print the approach time of input data (-1 for none): ");
-        approach = scan.nextDouble();
-        System.out.print("Please print the entry time of input data (-1 for none): ");
-        entry = scan.nextDouble();
-        System.out.print("Please print the ignition on time of input data (-1 for none): ");
-        ignitionOn = scan.nextDouble();
-        System.out.print("Please print the ignition off time of input data (-1 for none): ");
-        ignitionOff = scan.nextDouble();
-        System.out.print("Please print the exit time of input data (-1 for none): ");
-        exit = scan.nextDouble();
+    public static String fileName;
+    public static double approach, entry, ignitionOn, ignitionOff, exit;
 
+    //Arraylists to store mean, variance, FFT for each type of sensor
+    public static ArrayList<Double>[] meanAccelList;
+    public static ArrayList<Double> meanGyroList[];
+    public static ArrayList<Double> meanMagnetList[];
+    public static ArrayList<Double> meanRotateList[];
+
+    public static ArrayList<ArrayList<ArrayList<Double>>> fourierAccelList;
+    public static ArrayList<ArrayList<ArrayList<Double>>> fourierGyroList;
+    public static ArrayList<ArrayList<ArrayList<Double>>> fourierMagnetList;
+    public static ArrayList<ArrayList<ArrayList<Double>>> fourierRotateList;
+
+    public static ArrayList<Double> varAccelList[];
+    public static ArrayList<Double> varGyroList[];
+    public static ArrayList<Double> varMagnetList[];
+    public static ArrayList<Double> varRotateList[];
+
+    //Arraylists to get the input raw data (+1 for time arraylist for each sensor)
+    public static ArrayList<Double> inAccelList[];
+    public static ArrayList<Double> inGyroList[];
+    public static ArrayList<Double> inMagnetList[];
+    public static ArrayList<Double> inRotateList[];
+
+    //current window of data that is being processed
+    public static ArrayList<Double> currAccelWindow;
+    public static ArrayList<Double> currGyroWindow;
+    public static ArrayList<Double> currMagnetWindow;
+    public static ArrayList<Double> currRotateWindow;
+
+
+
+    public FeatureCalculations(String fileName, double approach, double entry, double ignitionOn, double ignitionOff, double exit){
+        this.fileName = fileName;
+        this.approach = approach;
+        this.entry = entry;
+        this.ignitionOn = ignitionOn;
+        this.ignitionOff = ignitionOff;
+        this.exit = exit;
+    }
+
+
+    public static void CalculateFeatures() throws IOException{
 
         //Arraylists to store mean, variance, FFT for each type of sensor
-        ArrayList<Double>[] meanAccelList;
         meanAccelList = new ArrayList[numDirections];
-        ArrayList<Double> meanGyroList[];
         meanGyroList = new ArrayList[numDirections];
-        ArrayList<Double> meanMagnetList[];
         meanMagnetList = new ArrayList[numDirections];
-        ArrayList<Double> meanRotateList[];
         meanRotateList = new ArrayList[numDirections];
 
-        ArrayList<ArrayList<ArrayList<Double>>> fourierAccelList = new ArrayList<ArrayList<ArrayList<Double>>>();
-        ArrayList<ArrayList<ArrayList<Double>>> fourierGyroList = new ArrayList<ArrayList<ArrayList<Double>>>();
-        ArrayList<ArrayList<ArrayList<Double>>> fourierMagnetList = new ArrayList<ArrayList<ArrayList<Double>>>();
-        ArrayList<ArrayList<ArrayList<Double>>> fourierRotateList = new ArrayList<ArrayList<ArrayList<Double>>>();
+        fourierAccelList = new ArrayList<ArrayList<ArrayList<Double>>>();
+        fourierGyroList = new ArrayList<ArrayList<ArrayList<Double>>>();
+        fourierMagnetList = new ArrayList<ArrayList<ArrayList<Double>>>();
+        fourierRotateList = new ArrayList<ArrayList<ArrayList<Double>>>();
 
-        ArrayList<Double> varAccelList[];
         varAccelList = new ArrayList[numDirections];
-        ArrayList<Double> varGyroList[];
         varGyroList = new ArrayList[numDirections];
-        ArrayList<Double> varMagnetList[];
         varMagnetList = new ArrayList[numDirections];
-        ArrayList<Double> varRotateList[];
         varRotateList = new ArrayList[numDirections];
 
         //Arraylists to get the input raw data (+1 for time arraylist for each sensor)
-        ArrayList<Double> inAccelList[];
         inAccelList = new ArrayList[numDirections+1];
-        ArrayList<Double> inGyroList[];
         inGyroList = new ArrayList[numDirections+1];
-        ArrayList<Double> inMagnetList[];
         inMagnetList = new ArrayList[numDirections+1];
-        ArrayList<Double> inRotateList[];
         inRotateList = new ArrayList[numDirections+1];
 
         //current window of data that is being processed
-        ArrayList<Double> currAccelWindow = new ArrayList<Double>();
-        ArrayList<Double> currGyroWindow = new ArrayList<Double>();
-        ArrayList<Double> currMagnetWindow = new ArrayList<Double>();
-        ArrayList<Double> currRotateWindow = new ArrayList<Double>();
+        currAccelWindow = new ArrayList<Double>();
+        currGyroWindow = new ArrayList<Double>();
+        currMagnetWindow = new ArrayList<Double>();
+        currRotateWindow = new ArrayList<Double>();
 
         ReadFile reader = new ReadFile();
         Data rawData = (reader.readfile(fileName));
