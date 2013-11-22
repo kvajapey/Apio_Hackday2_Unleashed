@@ -219,6 +219,14 @@ public class FeatureCalculations {
         timeLength = meanGyroList[0].size();
 
         for(i = 0; i < (timeLength); i++){
+
+            classifications.add(i, EventClassifier.Classify(meanGyroList[1].get(i), meanGyroList[2].get(i), meanMagnetList[0].get(i),
+                    meanMagnetList[1].get(i), meanMagnetList[2].get(i), meanRotateList[1].get(i), meanRotateList[2].get(i),
+                    fourierAccelList.get(0).get(2).get(i), fourierAccelList.get(0).get(4).get(i), fourierAccelList.get(0).get(8).get(i),
+                    fourierAccelList.get(1).get(0).get(i), fourierAccelList.get(1).get(6).get(i), fourierAccelList.get(2).get(6).get(i),
+                    fourierGyroList.get(0).get(0).get(i), fourierGyroList.get(0).get(1).get(i), fourierGyroList.get(0).get(3).get(i),
+                    fourierGyroList.get(1).get(3).get(i), fourierGyroList.get(2).get(10).get(i), ));
+
             output = "" + inAccelList[3].get(i);
             for(j = 0; j < numDirections; j++){
                 output += "," + meanAccelList[j].get(i) + "," + meanGyroList[j].get(i) + "," + meanMagnetList[j].get(i) +
