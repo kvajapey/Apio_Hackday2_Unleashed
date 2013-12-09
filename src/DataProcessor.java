@@ -11,6 +11,13 @@ import java.util.Scanner;
  * Time: 12:03 PM
  * To change this template use File | Settings | File Templates.
  */
+
+/*
+ * Filename: DataProcessor
+ * This file take a single input file and classifies it
+ * Runs the feature classifier in order to determine good or bad
+ *
+ */
 public class DataProcessor {
 
     public static ArrayList<String> classifications, filteredClassifications;
@@ -22,16 +29,16 @@ public class DataProcessor {
     public static ArrayList<Integer> ignitionOff = new ArrayList<Integer>();
     public static ArrayList<Integer> exit = new ArrayList<Integer>();
 
+    public static boolean classification;
 
-    public static void main(String args[]) throws IOException {
+    public static void runProcessor(String fileName) throws IOException {
 
-        String fileName;
 
-        Scanner scan;
-        scan = new Scanner(System.in);
-
-        System.out.print("Please print the filename of input data: ");
-        fileName = scan.next();
+//        Scanner scan;
+//        scan = new Scanner(System.in);
+//
+//        System.out.print("Please print the filename of input data: ");
+//        fileName = scan.next();
 
         FeatureCalculations.CalculateFeatures(fileName);
 
@@ -47,29 +54,31 @@ public class DataProcessor {
 
         filteredClassifications = ClassificationFilter.ModeFilter(classifications, window);
 
+        classification = isClassificataionGood(filteredClassifications);
         //if the file is good then write info to new file
-        if(isClassificataionGood(filteredClassifications)){
-            FileWriter fstream = new FileWriter("File_Classifications.csv");
-            BufferedWriter wr = new BufferedWriter(fstream);
+        if(classification){
+
 
             String output;
-
-            output = "Filename,Approach Time,Entry Time,Ignition on,Ignition off,Exit Time";
-            wr.write(output);
 
             output = fileName + "," + approach.get(0) + "," + entry.get(0) + "," + ignitionOn.get(0) + "," +
                     ignitionOff.get(0) + "," + exit.get(0);
 
-            wr.write(output);
+            TestFileClassifier.wr.append(output);
 
-            wr.close();
         }
 
+    }
+
+    public static boolean getClassification(){
+        return classification;
     }
 
     public static boolean isClassificataionGood(ArrayList<String> classified){
 
         boolean isGood = false;
+        System.out.println("timestamp size:" + timestamps.size());
+        System.out.println("classified size:" + classified.size());
         findEventTimes(classified);
 
         if(approach.size() == 1 && entry.size() == 1 && ignitionOn.size() == 1 && ignitionOff.size() == 1 && exit.size() == 1){
