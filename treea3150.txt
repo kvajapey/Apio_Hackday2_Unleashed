@@ -1,4 +1,5 @@
-if(meanGyroZ <= 0.120001){
+
+    			if(meanGyroZ <= 0.120001){
     				if(meanAccelX <= -0.016144){
     					if(meanRotateZ <= -0.046406){
     						if(fMagnetX4 <= 19.836762){
@@ -113,7 +114,7 @@ if(meanGyroZ <= 0.120001){
     							classification = DataUtils.NO_EVENT;
     						}
     						else{
-    							if(fAccelZ3 <= 6.781954{
+    							if(fAccelZ3 <= 6.781954){
     								if(fGyroY6 <= 2.488325){
     									classification = DataUtils.NO_EVENT;
     								}
@@ -166,3 +167,4 @@ if(meanGyroZ <= 0.120001){
     			}
 
     			
+    	
