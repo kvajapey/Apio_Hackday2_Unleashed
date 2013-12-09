@@ -20,18 +20,18 @@ import java.util.Scanner;
  */
 public class DataProcessor {
 
-    public static ArrayList<String> classifications, filteredClassifications;
-    public static ArrayList<Double> timestamps;
+    public ArrayList<String> classifications, filteredClassifications;
+    public ArrayList<Double> timestamps;
 
-    public static ArrayList<Integer> approach = new ArrayList<Integer>();
-    public static ArrayList<Integer> entry = new ArrayList<Integer>();
-    public static ArrayList<Integer> ignitionOn = new ArrayList<Integer>();
-    public static ArrayList<Integer> ignitionOff = new ArrayList<Integer>();
-    public static ArrayList<Integer> exit = new ArrayList<Integer>();
+    public ArrayList<Integer> approach = new ArrayList<Integer>();
+    public ArrayList<Integer> entry = new ArrayList<Integer>();
+    public ArrayList<Integer> ignitionOn = new ArrayList<Integer>();
+    public ArrayList<Integer> ignitionOff = new ArrayList<Integer>();
+    public ArrayList<Integer> exit = new ArrayList<Integer>();
 
-    public static boolean classification;
+    public boolean classification;
 
-    public static void runProcessor(String fileName) throws IOException {
+    public void runProcessor(String fileName) throws IOException {
 
 
 //        Scanner scan;
@@ -45,7 +45,7 @@ public class DataProcessor {
         classifications = FeatureCalculations.getClassifications();
         timestamps = FeatureCalculations.getTimestamps();
 
-        int window = (FeatureCalculations.FPS/2);
+        int window = (FeatureCalculations.FPS);
 
         //make window odd
         if(window % 2 == 0){
@@ -55,6 +55,8 @@ public class DataProcessor {
         filteredClassifications = ClassificationFilter.ModeFilter(classifications, window);
 
         classification = isClassificataionGood(filteredClassifications);
+        //classification = isClassificataionGood(classifications);
+
         //if the file is good then write info to new file
         if(classification){
 
@@ -89,11 +91,11 @@ public class DataProcessor {
 
     }
 
-    public static boolean getClassification(){
+    public boolean getClassification(){
         return classification;
     }
 
-    public static boolean isClassificataionGood(ArrayList<String> classified){
+    public boolean isClassificataionGood(ArrayList<String> classified){
 
         boolean isGood = false;
         System.out.println("timestamp size:" + timestamps.size());
@@ -111,7 +113,7 @@ public class DataProcessor {
         return isGood;
     }
 
-    public static void findEventTimes(ArrayList<String> classified){
+    public void findEventTimes(ArrayList<String> classified){
 
         int i, typeCount;
 

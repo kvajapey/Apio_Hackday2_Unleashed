@@ -34,6 +34,8 @@ public class TestFileClassifier {
         FileWriter badFstream;
         BufferedWriter badWr;
 
+        DataProcessor dataProcessor;
+
         try{
             Scanner scan;
             scan = new Scanner(System.in);
@@ -63,7 +65,8 @@ public class TestFileClassifier {
 
             if(extension.equals("txt")){
                 String fileName = inputName;
-                DataProcessor.runProcessor(fileName);
+                dataProcessor = new DataProcessor();
+                dataProcessor.runProcessor(fileName);
             }
             else{
                 String folderName = inputName;
@@ -76,9 +79,10 @@ public class TestFileClassifier {
 
                 for(String fileName:files){
 
-                    DataProcessor.runProcessor(folderName + "/" + fileName);
+                    dataProcessor = new DataProcessor();
+                    dataProcessor.runProcessor(folderName + "/" + fileName);
 
-                    if(DataProcessor.getClassification()){
+                    if(dataProcessor.getClassification()){
                         goodWr.append(fileName);
                     }
                     else{
