@@ -33,19 +33,12 @@ public class DataProcessor {
 
     public void runProcessor(String fileName) throws IOException {
 
-
-//        Scanner scan;
-//        scan = new Scanner(System.in);
-//
-//        System.out.print("Please print the filename of input data: ");
-//        fileName = scan.next();
-
         FeatureCalculations.CalculateFeatures(fileName);
 
         classifications = FeatureCalculations.getClassifications();
         timestamps = FeatureCalculations.getTimestamps();
 
-        int window = (FeatureCalculations.FPS);
+        int window = (FeatureCalculations.FPS*2 );
 
         //make window odd
         if(window % 2 == 0){
@@ -64,7 +57,7 @@ public class DataProcessor {
             String output;
 
             output = fileName + "," + approach.get(0) + "," + entry.get(0) + "," + ignitionOn.get(0) + "," +
-                    ignitionOff.get(0) + "," + exit.get(0);
+                    ignitionOff.get(0) + "," + exit.get(0) + "\n";
 
             TestFileClassifier.wr.append(output);
 
@@ -127,24 +120,26 @@ public class DataProcessor {
                 i++;
             }
 
+            i--;
+
             if(currEvent.equals(DataUtils.APPROACH_EVENT)){
-                approach.add((int) Math.round(timestamps.get(i + (typeCount / 2))));
+                approach.add((int) Math.round(timestamps.get(i - (typeCount / 2))));
             }
 
             else if(currEvent.equals(DataUtils.ENTER_EVENT)){
-                entry.add((int) Math.round(timestamps.get(i+(typeCount/2))));
+                entry.add((int) Math.round(timestamps.get(i - (typeCount/2))));
             }
 
             else if(currEvent.equals(DataUtils.ON_EVENT)){
-                ignitionOn.add((int) Math.round(timestamps.get(i+(typeCount/2))));
+                ignitionOn.add((int) Math.round(timestamps.get(i - (typeCount/2))));
             }
 
             else if(currEvent.equals(DataUtils.OFF_EVENT)){
-                ignitionOff.add((int) Math.round(timestamps.get(i+(typeCount/2))));
+                ignitionOff.add((int) Math.round(timestamps.get(i - (typeCount/2))));
             }
 
             else if(currEvent.equals(DataUtils.EXIT_EVENT)){
-                exit.add((int) Math.round(timestamps.get(i+(typeCount/2))));
+                exit.add((int) Math.round(timestamps.get(i - (typeCount/2))));
             }
         }
     }

@@ -60,7 +60,7 @@ public class TestFileClassifier {
 
             String output;
 
-            output = "Filename,Approach Time,Entry Time,Ignition on,Ignition off,Exit Time";
+            output = "Filename,Approach Time,Entry Time,Ignition on,Ignition off,Exit Time\n";
             wr.write(output);
 
             if(extension.equals("txt")){
