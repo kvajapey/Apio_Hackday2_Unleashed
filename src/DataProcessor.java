@@ -67,6 +67,25 @@ public class DataProcessor {
             TestFileClassifier.wr.append(output);
 
         }
+        else{
+        	System.out.printf("Bad File approaches: %d entries: %d ignition ons: %d ignitionoffs: %d exits: %d\n", 
+        						approach.size(), entry.size(), ignitionOn.size(), ignitionOff.size(), exit.size());
+        	for(int k = 0; k < approach.size(); k++){
+        		System.out.printf("Approach time %d: %d\n", approach.size(), approach.get(k));
+        	}
+        	for(int k = 0; k < entry.size(); k++){
+        		System.out.printf("Entry time %d: %d\n", entry.size(), entry.get(k));
+        	}
+        	for(int k = 0; k < ignitionOn.size(); k++){
+        		System.out.printf("Ignition on time %d: %d\n", ignitionOn.size(), ignitionOn.get(k));
+        	}
+        	for(int k = 0; k < ignitionOff.size(); k++){
+        		System.out.printf("Ignition off time %d: %d\n", ignitionOff.size(), ignitionOff.get(k));
+        	}
+        	for(int k = 0; k < exit.size(); k++){
+        		System.out.printf("Exit time %d: %d\n", exit.size(), exit.get(k));
+        	}
+        }
 
     }
 
@@ -98,10 +117,10 @@ public class DataProcessor {
 
         String currEvent;
 
-        for(i = 0; i < timestamps.size(); i++){
+        for(i = 0; i < classified.size() && i < timestamps.size(); i++){
             currEvent = classified.get(i);
             typeCount = 0;
-            while(currEvent.equals(classified.get(i))){
+            while((i < classified.size()) && currEvent.equals(classified.get(i))){
                 typeCount++;
                 i++;
             }

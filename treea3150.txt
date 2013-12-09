@@ -1,62 +1,4 @@
-import java.util.ArrayList;
-
-/**
- * Created with IntelliJ IDEA.
- * User: kvajapey
- * Date: 11/22/13
- * Time: 12:03 PM
- * To change this template use File | Settings | File Templates.
- */
-public class EventClassifier {
-
-    public static String fileName;
-    public static double approach, entry, ignitionOn, ignitionOff, exit;
-
-    //Arraylists to store mean, variance, FFT for each type of sensor
-    public static ArrayList<Double>[] meanAccelList;
-    public static ArrayList<Double> meanGyroList[];
-    public static ArrayList<Double> meanMagnetList[];
-    public static ArrayList<Double> meanRotateList[];
-
-    public static ArrayList<ArrayList<ArrayList<Double>>> fourierAccelList;
-    public static ArrayList<ArrayList<ArrayList<Double>>> fourierGyroList;
-    public static ArrayList<ArrayList<ArrayList<Double>>> fourierMagnetList;
-    public static ArrayList<ArrayList<ArrayList<Double>>> fourierRotateList;
-
-    public static ArrayList<Double> varAccelList[];
-    public static ArrayList<Double> varGyroList[];
-    public static ArrayList<Double> varMagnetList[];
-    public static ArrayList<Double> varRotateList[];
-
-    //Arraylists to get the input raw data (+1 for time arraylist for each sensor)
-    public static ArrayList<Double> inAccelList[];
-    public static ArrayList<Double> inGyroList[];
-    public static ArrayList<Double> inMagnetList[];
-    public static ArrayList<Double> inRotateList[];
-
-    //current window of data that is being processed
-    public static ArrayList<Double> currAccelWindow;
-    public static ArrayList<Double> currGyroWindow;
-    public static ArrayList<Double> currMagnetWindow;
-    public static ArrayList<Double> currRotateWindow;
-
-
-    public static String Classify(double meanAccelX, double meanGyroY, double meanGyroZ, double meanMagnetX,double meanMagnetY, 
-    							  double meanMagnetZ, double meanRotateX,
-                                  double meanRotateY, double meanRotateZ, double fAccelX2, double fAccelX4, double fAccelX8,
-                                  double fAccelX12,
-                                  double fAccelY0, double fAccelY4, double fAccelY6, double fAccelY14,
-                                  double fAccelZ3, double fAccelZ5, 
-                                  double fAccelZ6, 
-                                  double fGyroX0, double fGyroX1,
-                                  double fGyroX3, double fGyroX6, double fGyroX7, double fGyroX14, double fGyroY3, double fGyroY6,
-                                  double fGyroY10, double fGyroZ0, double fGyroZ10, double fMagnetX4, 
-                                  double varAccelY, double varAccelZ, double varGyroX,
-                                  double varGyroY, double varGyroZ, double varMagnetY, double varMagnetZ){
-    	
-    	String classification = "";
-    	
-    			if(meanGyroZ <= 0.120001){
+if(meanGyroZ <= 0.120001){
     				if(meanAccelX <= -0.016144){
     					if(meanRotateZ <= -0.046406){
     						if(fMagnetX4 <= 19.836762){
@@ -171,7 +113,7 @@ public class EventClassifier {
     							classification = DataUtils.NO_EVENT;
     						}
     						else{
-    							if(fAccelZ3 <= 6.781954){
+    							if(fAccelZ3 <= 6.781954{
     								if(fGyroY6 <= 2.488325){
     									classification = DataUtils.NO_EVENT;
     								}
@@ -224,9 +166,3 @@ public class EventClassifier {
     			}
 
     			
-    	
-    	
-    	return classification;
-    }
-
-}

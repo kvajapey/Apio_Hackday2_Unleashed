@@ -15,6 +15,10 @@ public class FeatureCalculations {
 
     //frames rate for collected data
     public static final int FPS = 32;
+    //seconds per window of feature calculation
+    public static final int SPW = 3;
+    //frames per window of feature calculation
+    public static final int FPW = FPS*SPW;
     //number of directions for each sensor (X,Y,Z)
     public static final int numDirections = 3;
     //maximum frequency for FFT calculation
@@ -92,8 +96,7 @@ public class FeatureCalculations {
         //arraylist of each classification of each timestamp
         classifications = new ArrayList<String>();
 
-        ReadFile reader = new ReadFile();
-        Data rawData = (reader.readfile(fileName));
+        Data rawData = (ReadFile.readfile(fileName));
 
         //set all the raw data from data file
         inAccelList[0] = rawData.getAccelerometerXData();
@@ -151,17 +154,17 @@ public class FeatureCalculations {
             	fourierRotateList.get(i).add(new ArrayList<Double>());
             }
             //go through the length of the accel data
-            for(j = 0; j < (accelLength - FPS); j++){
+            for(j = 0; j < (accelLength - FPW); j++){
 
                 //get 32 frames at a time to process with a step size of 1 (overlapping windows)
-                for(k = 0; k < FPS; k++){
+                for(k = 0; k < FPW; k++){
                     currAccelWindow.add(k, inAccelList[i].get(j+k));
                 }
                 meanAccelList[i].add(j, calcMean(currAccelWindow));
                 varAccelList[i].add(j, calcVariance(currAccelWindow, calcMean(currAccelWindow)));
                 //get the fourier transforms of maxFreq different frequencies
                 for(n = 0; n < maxFreq; n++){
-                    fourierAccelList.get(i).get(n).add(j, goertzel(currAccelWindow, n+1, currAccelWindow.size()));
+                    fourierAccelList.get(i).get(n).add(j, goertzel(currAccelWindow, n+1, FPS));
                 }   
                 currAccelWindow.clear();
             }
@@ -169,44 +172,44 @@ public class FeatureCalculations {
             //this
 
             //go through length of gyro data
-            for(j = 0; j < (gyroLength - FPS); j++){
+            for(j = 0; j < (gyroLength - FPW); j++){
 
-                for(k = 0; k < FPS; k++){
+                for(k = 0; k < FPW; k++){
                     currGyroWindow.add(k, inGyroList[i].get(j+k));
                 }
                 meanGyroList[i].add(j, calcMean(currGyroWindow));
                 varGyroList[i].add(j, calcVariance(currGyroWindow, calcMean(currGyroWindow)));
                 for(n = 0; n < maxFreq; n++){
-                    fourierGyroList.get(i).get(n).add(j, goertzel(currGyroWindow, n+1, currGyroWindow.size()));
+                    fourierGyroList.get(i).get(n).add(j, goertzel(currGyroWindow, n+1, FPS));
                 } 
                 currGyroWindow.clear();
             }
             //System.out.println(meanGyroList[i].size());
 
-            for(j = 0; j < (magnetLength - FPS); j++){
+            for(j = 0; j < (magnetLength - FPW); j++){
 
-                for(k = 0; k < FPS; k++){
+                for(k = 0; k < FPW; k++){
                     currMagnetWindow.add(k, inMagnetList[i].get(j+k));
                 }
                 meanMagnetList[i].add(j, calcMean(currMagnetWindow));
                 varMagnetList[i].add(j, calcVariance(currMagnetWindow, calcMean(currMagnetWindow)));
                 for(n = 0; n < maxFreq; n++){
-                    fourierMagnetList.get(i).get(n).add(j, goertzel(currMagnetWindow, n+1, currMagnetWindow.size()));
+                    fourierMagnetList.get(i).get(n).add(j, goertzel(currMagnetWindow, n+1, FPS));
                 }
                 currMagnetWindow.clear();
             }
             //System.out.println(meanMagnetList[i].size());
 
 
-            for(j = 0; j < (rotateLength - FPS); j++){
+            for(j = 0; j < (rotateLength - FPW); j++){
 
-                for(k = 0; k < FPS; k++){
+                for(k = 0; k < FPW; k++){
                     currRotateWindow.add(k, inRotateList[i].get(j+k));
                 }
                 meanRotateList[i].add(j, calcMean(currRotateWindow));
                 varRotateList[i].add(j, calcVariance(currRotateWindow, calcMean(currRotateWindow)));
                 for(n = 0; n < maxFreq; n++){
-                    fourierRotateList.get(i).get(n).add(j, goertzel(currRotateWindow, n+1, currRotateWindow.size()));
+                    fourierRotateList.get(i).get(n).add(j, goertzel(currRotateWindow, n+1, FPS));
                 } 
                 currRotateWindow.clear();
             }
@@ -220,25 +223,22 @@ public class FeatureCalculations {
 
         for(i = 0; i < (timeLength); i++){
 
-            classifications.add(i, EventClassifier.Classify(meanGyroList[1].get(i), meanGyroList[2].get(i), meanMagnetList[0].get(i),
-                    meanMagnetList[1].get(i), meanMagnetList[2].get(i), meanRotateList[1].get(i), meanRotateList[2].get(i),
+            classifications.add(i, EventClassifier.Classify(meanAccelList[0].get(i), meanGyroList[1].get(i), meanGyroList[2].get(i), meanMagnetList[0].get(i),
+                    meanMagnetList[1].get(i), meanMagnetList[2].get(i), meanRotateList[0].get(i), meanRotateList[1].get(i), meanRotateList[2].get(i),
                     fourierAccelList.get(0).get(2).get(i), fourierAccelList.get(0).get(4).get(i), fourierAccelList.get(0).get(8).get(i),
-                    fourierAccelList.get(1).get(0).get(i), fourierAccelList.get(1).get(6).get(i), fourierAccelList.get(2).get(6).get(i),
+                    fourierAccelList.get(0).get(12).get(i),
+                    fourierAccelList.get(1).get(0).get(i), fourierAccelList.get(1).get(4).get(i), fourierAccelList.get(1).get(6).get(i), 
+                    fourierAccelList.get(1).get(14).get(i), fourierAccelList.get(2).get(3).get(i), 
+                    fourierAccelList.get(2).get(5).get(i), 
+                    fourierAccelList.get(2).get(6).get(i),
                     fourierGyroList.get(0).get(0).get(i), fourierGyroList.get(0).get(1).get(i), fourierGyroList.get(0).get(3).get(i),
-                    fourierGyroList.get(1).get(3).get(i), fourierGyroList.get(2).get(10).get(i), varAccelList[1].get(i),
-                    varAccelList[2].get(i), varGyroList[1].get(i), varGyroList[2].get(i), varMagnetList[1].get(i),
+                    fourierGyroList.get(0).get(6).get(i), fourierGyroList.get(0).get(7).get(i), fourierGyroList.get(0).get(14).get(i),
+                    fourierGyroList.get(1).get(3).get(i), fourierGyroList.get(1).get(6).get(i),
+                    fourierGyroList.get(1).get(10).get(i), fourierGyroList.get(2).get(0).get(i), fourierGyroList.get(2).get(10).get(i), 
+                    fourierMagnetList.get(0).get(4).get(i), varAccelList[1].get(i),
+                    varAccelList[2].get(i), varGyroList[0].get(i), varGyroList[1].get(i), varGyroList[2].get(i), varMagnetList[1].get(i),
                     varMagnetList[2].get(i)));
 
-//            output = "" + inAccelList[3].get(i);
-//            for(j = 0; j < numDirections; j++){
-//                output += "," + meanAccelList[j].get(i) + "," + meanGyroList[j].get(i) + "," + meanMagnetList[j].get(i) +
-//                        "," + meanRotateList[j].get(i) + "," + varAccelList[j].get(i) + "," + varGyroList[j].get(i) +
-//                        "," + varMagnetList[j].get(i) + "," + varRotateList[j].get(i);
-//                for(k = 0; k < maxFreq; k++){
-//                    output += "," + fourierAccelList.get(j).get(k).get(i) + "," + fourierGyroList.get(j).get(k).get(i) + "," +
-//                            fourierMagnetList.get(j).get(k).get(i) + "," + fourierRotateList.get(j).get(k).get(i);
-//                }
-//            }
         }
     }
 
