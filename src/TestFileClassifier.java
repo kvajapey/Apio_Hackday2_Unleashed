@@ -90,6 +90,8 @@ public class TestFileClassifier {
 
 
             wr.close();
+            goodWr.close();
+            badWr.close();
 
         } catch(Exception e){
             e.printStackTrace();
