@@ -38,7 +38,7 @@ public class DataProcessor {
         classifications = FeatureCalculations.getClassifications();
         timestamps = FeatureCalculations.getTimestamps();
 
-        int window = (FeatureCalculations.FPS*2 );
+        int window = (FeatureCalculations.FPS);
 
         //make window odd
         if(window % 2 == 0){
