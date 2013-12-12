@@ -1,7 +1,11 @@
 import java.util.ArrayList;
 
-//a class that contains an array for the arrays of second of data
-//and an array for the actvity of each second
+/*
+* Filename: Data.java
+* This class is a data class that keeps track of all the data
+* for the raw data files
+ */
+
 public class Data {
 //an array for the accelerometer samples
 ArrayList<Double> accelX = new ArrayList<Double>();
@@ -37,6 +41,7 @@ Double magnetSR;
 Double RPYSR;
 //an array for the actvity of each second
 ArrayList<String> activity = new ArrayList<String>();
+//constructor for data class
 public Data(ArrayList<Double> newAccelX, ArrayList<Double> newAccelY, ArrayList<Double> newAccelZ,
             ArrayList<Double> newGyroX, ArrayList<Double> newGyroY, ArrayList<Double> newGyroZ,
             ArrayList<Double> newMagnetX, ArrayList<Double> newMagnetY, ArrayList<Double> newMagnetZ,
@@ -65,6 +70,8 @@ public Data(ArrayList<Double> newAccelX, ArrayList<Double> newAccelY, ArrayList<
     magnetTime = newMagnetTime;
     RPYTime = newRPYTime;
 }
+
+//getter and setter methods
 public void setAccelerometerXData(ArrayList<Double> newAccelX){
     accelX = newAccelX;
 }

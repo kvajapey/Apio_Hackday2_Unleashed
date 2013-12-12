@@ -4,6 +4,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/*
+* Filename: Readfile.java
+* this file reads data from a raw data file
+* and inputs the data in a set of arraylists
+ */
 
 public class ReadFile {
 	//reads data in from file
@@ -59,6 +64,7 @@ public class ReadFile {
 						break;
 					}
 				}
+
 				else if(lineElems[1].equals("Config")){
 					//get sample rates
 					RPYSR = Double.valueOf(lineElems[5]);
@@ -67,18 +73,7 @@ public class ReadFile {
 					accelSR = Double.valueOf(lineElems[11]);
 					gyroSR = Double.valueOf(lineElems[13]);
 				}
-				/*else if(lineElems[1].equals("CMDevMotMag")){
-					magnetX.add(Double.valueOf(lineElems[4]));
-					magnetY.add(Double.valueOf(lineElems[5]));
-					magnetZ.add(Double.valueOf(lineElems[6]));
-					magnetTime.add(getTime(lineElems[0]));
-				}*/
-				/*else if(lineElems[1].equals("CMGyro")){
-					gyroX.add(Double.valueOf(lineElems[4]));
-					gyroY.add(Double.valueOf(lineElems[5]));
-					gyroZ.add(Double.valueOf(lineElems[6]));
-					gyroTime.add(getTime(lineElems[0]));
-				}*/
+
 				else if(lineElems[1].equals("CMDevMot")){
 					roll.add(Double.valueOf(lineElems[19]));
 					pitch.add(Double.valueOf(lineElems[20]));

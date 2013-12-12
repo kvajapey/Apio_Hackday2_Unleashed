@@ -1,3 +1,7 @@
+/*
+* Filename: DataUtils.java
+* This class keeps utilities that are used throughout the program
+ */
 
 public class DataUtils {
 	//number of directions for each sensor (X,Y,Z)

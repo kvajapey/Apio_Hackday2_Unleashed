@@ -20,6 +20,7 @@ import java.util.Scanner;
  */
 public class TestFileClassifier {
 
+    //inputs for writing the CSV files with event timestamps
     public static FileWriter fstream;
     public static BufferedWriter wr;
 
@@ -29,8 +30,10 @@ public class TestFileClassifier {
         String inputName, extension;
         ArrayList<String> files = new ArrayList<String>();
 
+        //writer for all the good files
         FileWriter goodFstream;
         BufferedWriter goodWr;
+        //writer for all the bad files
         FileWriter badFstream;
         BufferedWriter badWr;
 
@@ -47,6 +50,7 @@ public class TestFileClassifier {
             fstream = new FileWriter("File_Classifications.csv");
             wr = new BufferedWriter(fstream);
 
+            //get input files or folders
             System.out.print("Please input folder name to read raw data files from, or a file name: ");
             inputName = scan.next();
 
@@ -63,20 +67,24 @@ public class TestFileClassifier {
             output = "Filename,Approach Time,Entry Time,Ignition on,Ignition off,Exit Time\n";
             wr.write(output);
 
+            //check if the input name is a text file
             if(extension.equals("txt")){
                 String fileName = inputName;
                 dataProcessor = new DataProcessor();
                 dataProcessor.runProcessor(fileName);
             }
+            //if not a file the it is a folder
             else{
                 String folderName = inputName;
                 folder = new File(folderName);
 
+                //go through all the files in the folder
                 for(final File fileEntry: folder.listFiles()){
 
                     files.add(fileEntry.getName());
                 }
 
+                //run data processor on each file
                 for(String fileName:files){
 
                     dataProcessor = new DataProcessor();

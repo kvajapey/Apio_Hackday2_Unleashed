@@ -20,24 +20,33 @@ import java.util.Scanner;
  */
 public class DataProcessor {
 
+    //list of filtered and unfiltered classifications
     public ArrayList<String> classifications, filteredClassifications;
+    //list of timestamps
     public ArrayList<Double> timestamps;
 
+    //event lists
     public ArrayList<Integer> approach = new ArrayList<Integer>();
     public ArrayList<Integer> entry = new ArrayList<Integer>();
     public ArrayList<Integer> ignitionOn = new ArrayList<Integer>();
     public ArrayList<Integer> ignitionOff = new ArrayList<Integer>();
     public ArrayList<Integer> exit = new ArrayList<Integer>();
 
+    //classification boolean
     public boolean classification;
 
+    //method to run processor on the raw data
     public void runProcessor(String fileName) throws IOException {
 
+        //calculate the features used for event classification
         FeatureCalculations.CalculateFeatures(fileName);
 
+        //get list of the classifications
         classifications = FeatureCalculations.getClassifications();
+        //get list of timestamps
         timestamps = FeatureCalculations.getTimestamps();
 
+        //size of filter window
         int window = (FeatureCalculations.FPS);
 
         //make window odd
@@ -45,10 +54,11 @@ public class DataProcessor {
             window++;
         }
 
+        //filer the classifications using a Mode filter
         filteredClassifications = ClassificationFilter.ModeFilter(classifications, window);
 
+        //check if the classifications are good
         classification = isClassificataionGood(filteredClassifications);
-        //classification = isClassificataionGood(classifications);
 
         //if the file is good then write info to new file
         if(classification){
@@ -59,9 +69,11 @@ public class DataProcessor {
             output = fileName + "," + approach.get(0) + "," + entry.get(0) + "," + ignitionOn.get(0) + "," +
                     ignitionOff.get(0) + "," + exit.get(0) + "\n";
 
+            //write the file information to a CSV file with the timestamps for each event
             TestFileClassifier.wr.append(output);
 
         }
+        //if it is a bad file get the classifications
         else{
         	System.out.printf("Bad File approaches: %d entries: %d ignition ons: %d ignitionoffs: %d exits: %d\n", 
         						approach.size(), entry.size(), ignitionOn.size(), ignitionOff.size(), exit.size());
@@ -84,10 +96,12 @@ public class DataProcessor {
 
     }
 
+    //see if the file is good or bad
     public boolean getClassification(){
         return classification;
     }
 
+    //check if the file is useful
     public boolean isClassificataionGood(ArrayList<String> classified){
 
         boolean isGood = false;
@@ -95,6 +109,8 @@ public class DataProcessor {
         System.out.println("classified size:" + classified.size());
         findEventTimes(classified);
 
+        //criteria for a good file
+        //if there is more than one of each classification the file is not useful
         if(approach.size() == 1 && entry.size() == 1 && ignitionOn.size() == 1 && ignitionOff.size() == 1 && exit.size() == 1){
             if(approach.get(0) < entry.get(0) && entry.get(0) < ignitionOn.get(0) && ignitionOn.get(0) < ignitionOff.get(0) &&
             ignitionOff.get(0) < exit.get(0)){
@@ -106,12 +122,14 @@ public class DataProcessor {
         return isGood;
     }
 
+    //find the times of each of the events
     public void findEventTimes(ArrayList<String> classified){
 
         int i, typeCount;
 
         String currEvent;
 
+        //store all the found events in each respective array
         for(i = 0; i < classified.size() && i < timestamps.size(); i++){
             currEvent = classified.get(i);
             typeCount = 0;

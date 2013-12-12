@@ -13,6 +13,8 @@ public class ClassificationFilter {
 		for(int i = 0; i < window/2; i++){
 			smoothedClassification.add(i, classification.get(i));
 		}
+
+        //forloop to run a window through the data and smooth inconsistencies
 		for(int i = window/2; (i + window/2) < classification.size(); i++){
 			approachCount = 0;
 			entryCount = 0;
@@ -20,6 +22,7 @@ public class ClassificationFilter {
 			offCount = 0;
 			exitCount = 0;
 			noneCount = 0;
+            //go through window and fill in inconsistent classifications
 			for(int j = 0; j < window; j++){
 				if(classification.get(i+j-window/2).equals(DataUtils.APPROACH_EVENT)){
 					approachCount++;
@@ -43,6 +46,7 @@ public class ClassificationFilter {
 			String smoothClass = max(approachCount, entryCount, onCount, offCount, exitCount, noneCount);
 			smoothedClassification.add(i, smoothClass);
 		}
+        //loop to go through the end of the classification list
 		for(int i = classification.size() - window/2; i < classification.size(); i++){
 			smoothedClassification.add(i, classification.get(i));
 		}
