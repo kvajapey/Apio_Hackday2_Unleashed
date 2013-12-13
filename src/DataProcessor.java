@@ -140,24 +140,26 @@ public class DataProcessor {
 
             i--;
 
-            if(currEvent.equals(DataUtils.APPROACH_EVENT)){
-                approach.add((int) Math.round(timestamps.get(i - (typeCount / 2))));
-            }
+            if(Math.round(timestamps.get(i-(typeCount/2))) != 0){
+            	if(currEvent.equals(DataUtils.APPROACH_EVENT)){
+            		approach.add((int) Math.round(timestamps.get(i - (typeCount / 2))));
+            	}
 
-            else if(currEvent.equals(DataUtils.ENTER_EVENT)){
-                entry.add((int) Math.round(timestamps.get(i - (typeCount/2))));
-            }
+            	else if(currEvent.equals(DataUtils.ENTER_EVENT)){
+            		entry.add((int) Math.round(timestamps.get(i - (typeCount/2))));
+            	}
 
-            else if(currEvent.equals(DataUtils.ON_EVENT)){
-                ignitionOn.add((int) Math.round(timestamps.get(i - (typeCount/2))));
-            }
+            	else if(currEvent.equals(DataUtils.ON_EVENT)){
+            		ignitionOn.add((int) Math.round(timestamps.get(i - (typeCount/2))));
+            	}
 
-            else if(currEvent.equals(DataUtils.OFF_EVENT)){
-                ignitionOff.add((int) Math.round(timestamps.get(i - (typeCount/2))));
-            }
+            	else if(currEvent.equals(DataUtils.OFF_EVENT)){
+            		ignitionOff.add((int) Math.round(timestamps.get(i - (typeCount/2))));
+            	}
 
-            else if(currEvent.equals(DataUtils.EXIT_EVENT)){
-                exit.add((int) Math.round(timestamps.get(i - (typeCount/2))));
+            	else if(currEvent.equals(DataUtils.EXIT_EVENT)){
+            		exit.add((int) Math.round(timestamps.get(i - (typeCount/2))));
+            	}
             }
         }
     }
