@@ -43,29 +43,20 @@ public class EventClassifier {
 
     public static String Classify(double meanAccelX, double meanAccelY, double meanAccelZ,
     							  double meanGyroX, double meanGyroY, double meanGyroZ,
-    							  double meanMagnetX,double meanMagnetY, 
-    							  double meanMagnetZ, double meanRotateX,
-                                  double meanRotateY, double meanRotateZ, double fAccelX1, double fAccelX2, 
-                                  double fAccelX4, double fAccelX6, double fAccelX8, double fAccelX9, double fAccelX12,
-                                  double fAccelX14, double fAccelX15, 
-                                  double fAccelY0, double fAccelY1, double fAccelY2, double fAccelY4, double fAccelY5,
-                                  double fAccelY6, double fAccelY7, double fAccelY13, double fAccelY14,
-                                  double fAccelZ1, double fAccelZ2, double fAccelZ3, double fAccelZ4, double fAccelZ5, 
-                                  double fAccelZ6, double fAccelZ10, double fAccelZ11, double fAccelZ14,
-                                  double fGyroX0, double fGyroX1, double fGyroX2,
-                                  double fGyroX3, double fGyroX4, double fGyroX5, double fGyroX6, double fGyroX7, 
-                                  double fGyroX8, double fGyroX9, double fGyroX12, double fGyroX14, 
-                                  double fGyroY0, double fGyroY1, double fGyroY2, double fGyroY3, double fGyroY4, double fGyroY5,
-                                  double fGyroY6, double fGyroY7,
-                                  double fGyroY10, double fGyroZ0, double fGyroZ1, double fGyroZ3,
-                                  double fGyroZ5, double fGyroZ6, double fGyroZ9, double fGyroZ10, 
-                                  double fMagnetX0, double fMagnetX4, double fMagnetX5,
-                                  double fMagnetY6,  double fMagnetZ7, double fRotateX0,
-                                  double fRotateX12, double fRotateY12, double fRotateY15,
-                                  double fRotateZ0, double fRotateZ14, double fRotateZ15,
-                                  double fAccelZ13,
-                                  double varAccelX, double varAccelY, double varAccelZ, double varGyroX,
-                                  double varGyroY, double varGyroZ, double varMagnetX, double varMagnetY, double varMagnetZ,
+    							  double meanMagnetX,double meanMagnetY, double meanMagnetZ, 
+    							  double meanRotateX, double meanRotateY, double meanRotateZ, 
+                                  double fAccelX2, double fAccelX14, double fAccelX15,
+                                  double fAccelY1, double fAccelY2, double fAccelY5, double fAccelY7, double fAccelY13, double fAccelY14,
+                                  double fAccelZ3, double fAccelZ4, double fAccelZ6, double fAccelZ13,
+                                  double fGyroX1, double fGyroX2, double fGyroX3, double fGyroX4, double fGyroX5, double fGyroX6, 
+                                  double fGyroX9, double fGyroX12,
+                                  double fGyroY0, double fGyroY1, double fGyroY2, double fGyroY5, double fGyroY6, double fGyroY10,
+                                  double fGyroZ0, double fGyroZ3, double fGyroZ5, double fGyroZ6, double fGyroZ9,
+                                  double fMagnetX0, double fMagnetZ7,
+                                  double fRotateX0, double fRotateY12, double fRotateZ0, double fRotateZ15,
+                                  double varAccelX, double varAccelY, double varAccelZ, 
+                                  double varGyroX, double varGyroY, double varGyroZ, 
+                                  double varMagnetX, double varMagnetY, double varMagnetZ,
                                   double varRotateX, double varRotateY, double varRotateZ){
     	
     	String classification = "";
@@ -75,24 +66,199 @@ public class EventClassifier {
     					if(fGyroX1 <= 97.643965){
     						if(fGyroY6 <= 115.269621){
     							if(fMagnetZ7 <= 44.9855){
-    								classification = DataUtils.NO_EVENT;
-    							}
-    							else{
-    								if(meanRotateX <= 0.017741){
-    									classification = DataUtils.NO_EVENT;
-    								}
-    								else{
-    									if(meanGyroZ <= -0.012032){
-    										if(fGyroZ3 <= 3.528337){
-    											classification = DataUtils.NO_EVENT;
+    								if(fAccelZ13 <= 0.3383){
+    									if(meanMagnetX <= -23.752013){
+    										if(meanRotateZ <= 1.861838){
+    											classification = DataUtils.ON_EVENT;
     										}
     										else{
-    											if(varGyroZ <= 0.053864){
-    												classification = DataUtils.APPROACH_EVENT;
+    											classification = DataUtils.NO_EVENT;
+    										}
+    									}
+    									else{
+    										if(meanGyroX <= 0.033767){
+    											if(meanMagnetY <= 30.113415){
+    												if(varMagnetX <= 14.442537){
+    													if(varMagnetZ <= 0.511947){
+    														if(meanMagnetY <= -32.480147){
+    															if(varRotateY <= 0.000238){
+    																classification = DataUtils.NO_EVENT;
+    															}
+    															else{
+    																classification = DataUtils.ON_EVENT;
+    															}
+    														}
+    														else{
+    															if(meanRotateY <= -0.598883){
+    																if(meanRotateY <= -0.600551){
+    																	if(meanAccelZ <= -0.00263){
+    																		classification = DataUtils.ON_EVENT;
+    																	}
+    																	else{
+    																		classification = DataUtils.NO_EVENT;
+    																	}
+    																}
+    																else{
+    																	classification = DataUtils.ON_EVENT;
+    																}
+    															}
+    															else{
+    																if(meanRotateX <= 0.005662){
+    																	if(meanMagnetX <= 0.102056){
+    																		classification = DataUtils.NO_EVENT;
+    																	}
+    																	else{
+    																		if(meanRotateZ <= -0.05207){
+    																			classification = DataUtils.NO_EVENT;
+    																		}
+    																		else{
+    																			if(varGyroY <= 0.008034){
+    																				classification = DataUtils.ON_EVENT;
+    																			}
+    																			else{
+    																				classification = DataUtils.NO_EVENT;
+    																			}
+    																		}
+    																	}
+    																}
+    																else{
+    																	classification = DataUtils.NO_EVENT;
+    																}
+    															}
+    														}
+    													}
+    													else{
+    														if(varMagnetZ <= 13.9335){
+    															if(varMagnetZ <= 0.542388){
+    																if(meanRotateZ <= -0.186836){
+    																	classification = DataUtils.APPROACH_EVENT;
+    																}
+    																else{
+    																	classification = DataUtils.NO_EVENT;
+    																}
+    															}
+    															else{
+    																classification = DataUtils.NO_EVENT;
+    															}
+    														}
+    														else{
+    															if(meanRotateX <= 0.018052){
+    																classification = DataUtils.NO_EVENT;
+    															}
+    															else{
+    																if(varMagnetX <= 3.968143){
+    																	classification = DataUtils.APPROACH_EVENT;
+    																}
+    																else{
+    																	classification = DataUtils.NO_EVENT;
+    																}
+    															}
+    														}
+    													}
+    												}
+    												else{
+    													if(meanRotateX <= 0.01987){
+    														classification = DataUtils.ON_EVENT;
+    													}
+    													else{
+    														classification = DataUtils.NO_EVENT;
+    													}
+    												}
+    											}
+    											else{
+    												if(meanMagnetY <= 30.236296){
+    													if(varRotateY <= 0.000599){
+    														classification = DataUtils.ENTER_EVENT;
+    													}
+    													else{
+    														classification = DataUtils.NO_EVENT;
+    													}
+    												}
+    												else{
+    													if(fGyroX3 <= 9.287404){
+    														classification = DataUtils.NO_EVENT;
+    													}
+    													else{
+    														if(varAccelX <= 0.004356){
+    															if(varMagnetX <= 2.280859){
+    																classification = DataUtils.NO_EVENT;
+    															}
+    															else{
+    																classification = DataUtils.ON_EVENT;
+    															}
+    														}
+    														else{
+    															classification = DataUtils.NO_EVENT;
+    														}
+    													}
+    												}
+    											}
+    										}
+    										else{
+    											if(fGyroY5 <= 0.479374){
+    												if(fRotateY12 <= 0.005145){
+    													classification = DataUtils.NO_EVENT;
+    												}
+    												else{
+    													classification = DataUtils.ON_EVENT;
+    												}
     											}
     											else{
     												classification = DataUtils.NO_EVENT;
     											}
+    										}
+    									}
+    								}
+    								else{
+    									if(meanGyroZ <= 0.070779){
+    										classification = DataUtils.NO_EVENT;
+    									}
+    									else{
+    										if(varAccelZ <= 0.019851){
+    											classification = DataUtils.OFF_EVENT;
+    										}
+    										else{
+    											classification = DataUtils.NO_EVENT;
+    										}
+    									}
+    								}
+    							}
+    							else{
+    								if(meanRotateX <= 0.017741){
+    									if(meanMagnetX <= 4.079888){
+    										if(meanRotateX <= 0.014505){
+    											classification = DataUtils.NO_EVENT;
+    										}
+    										else{
+    											if(meanAccelY <= -0.005503){
+    												classification = DataUtils.ON_EVENT;
+    											}
+    											else{
+    												classification = DataUtils.NO_EVENT;
+    											}
+    										}
+    									}
+    									else{
+    										classification = DataUtils.ENTER_EVENT;
+    									}
+    								}
+    								else{
+    									if(meanGyroZ <= -0.012032){
+    										if(meanRotateZ <= 0.104958){
+    											if(fGyroX6 <= 1.472332){
+    												classification = DataUtils.NO_EVENT;
+    											}
+    											else{
+    												if(fAccelY7 <= 0.125465){
+    													classification = DataUtils.APPROACH_EVENT;
+    												}
+    												else{
+    													classification = DataUtils.NO_EVENT;
+    												}
+    											}
+    										}
+    										else{
+    											classification = DataUtils.NO_EVENT;
     										}
     									}
     									else{
@@ -106,16 +272,21 @@ public class EventClassifier {
     						}
     					}
     					else{
-    						if(varGyroX <= 0.307116){
-    							if(fGyroX3 <= 59.495213){
+    						if(meanRotateZ <= -2.137576){
+    							classification = DataUtils.APPROACH_EVENT;
+    						}
+    						else{
+    							if(meanMagnetZ <= -21.376254){
     								classification = DataUtils.APPROACH_EVENT;
     							}
     							else{
-    								classification = DataUtils.NO_EVENT;
+    								if(varAccelZ <= 0.377416){
+    									classification = DataUtils.NO_EVENT;
+    								}
+    								else{
+    									classification = DataUtils.APPROACH_EVENT;
+    								}
     							}
-    						}
-    						else{
-    							classification = DataUtils.NO_EVENT;
     						}
     					}
     				}
@@ -126,75 +297,143 @@ public class EventClassifier {
     								if(fGyroX6 <= 76.435696){
     									if(meanAccelZ <= 0.104841){
     										if(varGyroZ <= 0.017856){
-    											if(fMagnetX0 <= 65.174561){
-    												classification = DataUtils.ON_EVENT;
+    											if(fAccelY13 <= 0.013963){
+    												if(varRotateX <= 0.007085){
+    													classification = DataUtils.NO_EVENT;
+    												}
+    												else{
+    													classification = DataUtils.ON_EVENT;
+    												}
     											}
     											else{
-    												classification = DataUtils.NO_EVENT;
+    												classification = DataUtils.ON_EVENT;
     											}
     										}
     										else{
-    											if(fAccelX15 <= 0.640613){
-    												if(meanRotateY <= -0.053867){
-    													if(fGyroY2 <= 1.271163){
+    											if(fGyroX4 <= 209.141531){
+    												if(meanRotateY <= -0.048199){
+    													if(varRotateY <= 0.001325){
     														classification = DataUtils.ENTER_EVENT;
     													}
     													else{
-    														if(meanMagnetY <= -5.79294){
-    															classification = DataUtils.NO_EVENT;
+    														if(meanMagnetZ <= -44.44256){
+    															classification = DataUtils.ENTER_EVENT;
     														}
     														else{
-    															if(fGyroZ3 <= 18.328693){
-    																classification = DataUtils.ENTER_EVENT;
+    															if(meanMagnetY <= 32.475278){
+    																classification = DataUtils.NO_EVENT;
     															}
     															else{
-    																classification = DataUtils.NO_EVENT;
+    																classification = DataUtils.ENTER_EVENT;
     															}
     														}
     													}
     												}
     												else{
-    													if(fAccelX2 <= 7.080237){
-    														if(fAccelY7 <= 1.625384){
-    															if(meanAccelX <= -0.010972){
-    																if(meanGyroZ <= -0.093689){
-    																	classification = DataUtils.APPROACH_EVENT;
-    																}
-    																else{
-    																	if(fGyroZ6 <= 12.855233){
-    																		if(fAccelY2 <= 0.494162){
+    													if(meanAccelX <= -0.010972){
+    														if(meanGyroZ <= -0.093689){
+    															classification = DataUtils.APPROACH_EVENT;
+    														}
+    														else{
+    															if(varRotateY <= 0.013809){
+    																if(fGyroY6 <= 36.622197){
+    																	if(fAccelY2 <= 0.494162){
+    																		if(meanMagnetX <= 6.96169){
     																			classification = DataUtils.NO_EVENT;
     																		}
     																		else{
-    																			if(varRotateY <= 0.001109){
+    																			classification = DataUtils.APPROACH_EVENT;
+    																		}
+    																	}
+    																	else{
+    																		if(varAccelY <= 0.008524){
+    																			if(varMagnetX <= 7.158048){
+    																				classification = DataUtils.NO_EVENT;
+    																			}
+    																			else{
     																				classification = DataUtils.APPROACH_EVENT;
+    																			}
+    																		}
+    																		else{
+    																			classification = DataUtils.NO_EVENT;
+    																		}
+    																	}
+    																}
+    																else{
+    																	classification = DataUtils.APPROACH_EVENT;
+    																}
+    															}
+    															else{
+    																classification = DataUtils.APPROACH_EVENT;
+    															}
+    														}
+    													}
+    													else{
+    														if(fAccelX2 <= 6.830311){
+    															if(fAccelX15 <= 0.640613){
+    																if(fAccelY7 <= 1.509647){
+    																	if(fAccelZ13 <= 0.522165){
+    																		if(meanMagnetX <= -14.848911){
+    																			if(fGyroY0 <= 28.233161){
+    																				if(fAccelY13 <= 0.031198){
+    																					classification = DataUtils.NO_EVENT;
+    																				}
+    																				else{
+    																					classification = DataUtils.APPROACH_EVENT;
+    																				}
     																			}
     																			else{
     																				classification = DataUtils.NO_EVENT;
     																			}
     																		}
-    																	}
-    																	else{
-    																		classification = DataUtils.APPROACH_EVENT;
-    																	}
-    																}
-    															}
-    															else{
-    																if(fAccelZ13 <= 0.522165){
-    																	if(meanMagnetX <= -14.69224){
-    																		if(fGyroY0 <= 28.233161){
-    																			classification = DataUtils.APPROACH_EVENT;
-    																		}
     																		else{
-    																			classification = DataUtils.NO_EVENT;
-    																		}
-    																	}
-    																	else{
-    																		if(meanRotateY <= 0.062831){
-    																			if(meanMagnetX <= 5.188278){
-    																				if(meanRotateZ <= -0.193153){
-    																					if(varRotateY <= 0.001111){
-    																						classification = DataUtils.APPROACH_EVENT;
+    																			if(meanRotateY <= 0.064571){
+    																				if(meanMagnetX <= 5.188278){
+    																					if(meanGyroZ <= -0.081449){
+    																						if(fGyroZ6 <= 7.209478){
+    																							classification = DataUtils.NO_EVENT;
+    																						}
+    																						else{
+    																							classification = DataUtils.ENTER_EVENT;
+    																						}
+    																					}
+    																					else{
+    																						if(fGyroY2 <= 0.32866){
+    																							classification = DataUtils.APPROACH_EVENT;
+    																						}
+    																						else{
+    																							if(meanAccelY <= 0.01954){
+    																								if(fGyroX6 <= 22.776337){
+    																									classification = DataUtils.NO_EVENT;
+    																								}
+    																								else{
+    																									if(fMagnetX0 <= 4121.590151){
+    																										classification = DataUtils.NO_EVENT;
+    																									}
+    																									else{
+    																										classification = DataUtils.APPROACH_EVENT;
+    																									}
+    																								}
+    																							}
+    																							else{
+    																								if(varAccelZ <= 0.018311){
+    																									classification = DataUtils.APPROACH_EVENT;
+    																								}
+    																								else{
+    																									classification = DataUtils.NO_EVENT;
+    																								}
+    																							}
+    																						}
+    																					}
+    																				}
+    																				else{
+    																					classification = DataUtils.APPROACH_EVENT;
+    																				}
+    																			}
+    																			else{
+    																				if(varGyroZ <= 0.023925){
+    																					if(meanGyroX <= -0.000855){
+    																						classification = DataUtils.ENTER_EVENT;
     																					}
     																					else{
     																						classification = DataUtils.NO_EVENT;
@@ -204,8 +443,15 @@ public class EventClassifier {
     																					classification = DataUtils.NO_EVENT;
     																				}
     																			}
+    																		}
+    																	}
+    																	else{
+    																		if(fGyroX3 <= 42.258083){
+    																			if(fAccelY1 <= 0.479564){
+    																				classification = DataUtils.NO_EVENT;
+    																			}
     																			else{
-    																				classification = DataUtils.APPROACH_EVENT;
+    																				classification = DataUtils.ENTER_EVENT;
     																			}
     																		}
     																		else{
@@ -214,37 +460,37 @@ public class EventClassifier {
     																	}
     																}
     																else{
-    																	if(fGyroX3 <= 42.258083){
-    																		if(fAccelY1 <= 0.618629){
-    																			classification = DataUtils.NO_EVENT;
-    																		}
-    																		else{
-    																			classification = DataUtils.ENTER_EVENT;
-    																		}
-    																	}
-    																	else{
+    																	if(meanRotateY <= 0.042373){
     																		classification = DataUtils.NO_EVENT;
     																	}
+    																	else{
+    																		if(meanGyroZ <= -0.074382){
+    																			classification = DataUtils.ENTER_EVENT;
+    																		}
+    																		else{
+    																			classification = DataUtils.NO_EVENT;
+    																		}
+    																	}
+    																}
+    															}
+    															else{
+    																if(fGyroX5 <= 2.368408){
+    																	classification = DataUtils.ON_EVENT;
+    																}
+    																else{
+    																	classification = DataUtils.NO_EVENT;
     																}
     															}
     														}
     														else{
-    															if(meanRotateY <= 0.042794){
-    																classification = DataUtils.NO_EVENT;
-    															}
-    															else{
-    																classification = DataUtils.ENTER_EVENT;
-    															}
+    															classification = DataUtils.APPROACH_EVENT;
     														}
-    													}
-    													else{
-    														classification = DataUtils.APPROACH_EVENT;
     													}
     												}
     											}
     											else{
-    												if(fGyroX5 <= 2.368408){
-    													classification = DataUtils.APPROACH_EVENT;
+    												if(fGyroY5 <= 15.717066){
+    													classification = DataUtils.ON_EVENT;
     												}
     												else{
     													classification = DataUtils.NO_EVENT;
@@ -253,25 +499,30 @@ public class EventClassifier {
     										}
     									}
     									else{
-    										if(fRotateZ0 <= 0.972155){
-    											classification = DataUtils.NO_EVENT;
+    										if(meanMagnetZ <= 18.095601){
+    											classification = DataUtils.APPROACH_EVENT;
     										}
     										else{
-    											classification = DataUtils.APPROACH_EVENT;
+    											if(varAccelY <= 0.014476){
+    												classification = DataUtils.APPROACH_EVENT;
+    											}
+    											else{
+    												classification = DataUtils.NO_EVENT;
+    											}
     										}
     									}
     								}
     								else{
-    									if(fAccelX14 <= 0.050679){
-    										classification = DataUtils.APPROACH_EVENT;
+    									if(varGyroY <= 0.296322){
+    										classification = DataUtils.NO_EVENT;
     									}
     									else{
-    										classification = DataUtils.NO_EVENT;
+    										classification = DataUtils.APPROACH_EVENT;
     									}
     								}
     							}
-    							if(varMagnetX > 137.851746){
-    								if(fRotateZ0 <= 186.122726){
+    							else{
+    								if(fRotateZ0 <= 170.212452){
     									classification = DataUtils.OFF_EVENT;
     								}
     								else{
@@ -280,18 +531,43 @@ public class EventClassifier {
     							}
     						}
     						else{
-    							classification = DataUtils.NO_EVENT;
+    							if(meanRotateZ <= -0.025214){
+    								if(meanGyroX <= -0.106639){
+    									if(fAccelY13 <= 1.299037){
+    										classification = DataUtils.NO_EVENT;
+    									}
+    									else{
+    										classification = DataUtils.OFF_EVENT;
+    									}
+    								}
+    								else{
+    									classification = DataUtils.NO_EVENT;
+    								}
+    							}
+    							else{
+    								if(meanRotateX <= 1.656239){
+    									classification = DataUtils.NO_EVENT;
+    								}
+    								else{
+    									classification = DataUtils.OFF_EVENT;
+    								}
+    							}
     						}
     					}
     					else{
     						if(fGyroX4 <= 502.655959){
     							if(fAccelZ3 <= 56.652309){
     								if(meanGyroZ <= -0.395847){
-    									if(meanRotateY <= 0.758378){
-    										classification = DataUtils.NO_EVENT;
+    									if(fRotateZ15 <= 0.078022){
+    										classification = DataUtils.EXIT_EVENT;
     									}
     									else{
-    										classification = DataUtils.EXIT_EVENT;
+    										if(meanGyroY <= -0.105642){
+    											classification = DataUtils.ON_EVENT;
+    										}
+    										else{
+    											classification = DataUtils.NO_EVENT;
+    										}
     									}
     								}
     								else{
@@ -300,11 +576,26 @@ public class EventClassifier {
     									}
     									else{
     										if(meanMagnetZ <= 31.153382){
-    											classification = DataUtils.NO_EVENT;
+    											if(meanGyroX <= -0.045264){
+    												if(meanMagnetZ <= -44.601541){
+    													classification = DataUtils.ENTER_EVENT;
+    												}
+    												else{
+    													classification = DataUtils.NO_EVENT;
+    												}
+    											}
+    											else{
+    												classification = DataUtils.NO_EVENT;
+    											}
     										}
     										else{
-    											if(meanMagnetY <= 5.669259){
-    												classification = DataUtils.NO_EVENT;
+    											if(meanMagnetX <= -3.940307){
+    												if(meanRotateX <= 1.582958){
+    													classification = DataUtils.NO_EVENT;
+    												}
+    												else{
+    													classification = DataUtils.EXIT_EVENT;
+    												}
     											}
     											else{
     												classification = DataUtils.OFF_EVENT;
@@ -324,173 +615,224 @@ public class EventClassifier {
     				}
     			}
     			else{
-                    if(varGyroY <= 0.533124){
-                        if(fAccelZ4 <= 7.426417){
-                            if(fAccelY5 <= 7.880753){
-                                if(meanAccelY <= -0.015234){
-                                    classification = DataUtils.NO_EVENT;
-                                }
-                                else{
-                                    if(meanRotateZ <= 1.096872){
-                                        if(meanRotateX <= -0.438397){
-                                            classification = DataUtils.EXIT_EVENT;
-                                        }
-                                        else{
-                                            if(fGyroY10 <= 22.729749){
-                                                if(fGyroY1 <= 137.666457){
-                                                    if(fGyroX9 <= 28.947785){
-                                                        if(fAccelY13 <= 0.213913){
-                                                            if(fAccelZ6 <= 1.673829){
-                                                                classification = DataUtils.NO_EVENT;
-                                                            }
-                                                            else{
-                                                                if(fGyroX12 <= 0.284645){
-                                                                    classification = DataUtils.OFF_EVENT;
-                                                                }
-                                                                else{
-                                                                    classification = DataUtils.NO_EVENT;
-                                                                }
-                                                            }
-                                                        }
-                                                        else{
-                                                            if(varAccelY <= 0.012366){
-                                                                if(fGyroZ0 <= 73.644973){
-                                                                    classification = DataUtils.OFF_EVENT;
-                                                                }
-                                                                else{
-                                                                    classification = DataUtils.NO_EVENT;
-                                                                }
-                                                            }
-                                                            else{
-                                                                classification = DataUtils.NO_EVENT;
-                                                            }
-                                                        }
-                                                    }
-                                                    else{
-                                                        classification = DataUtils.OFF_EVENT;
-                                                    }
-                                                }
-                                                else{
-                                                    classification = DataUtils.OFF_EVENT;
-                                                }
-                                            }
-                                            else{
-                                                classification = DataUtils.OFF_EVENT;
-                                            }
-                                        }
-                                    }
-                                    else{
-                                        if(fGyroZ5 <= 39.587984){
-                                            if(fRotateZ15 <= 0.083409){
-                                                classification = DataUtils.NO_EVENT;
-                                            }
-                                            else{
-                                                if(fGyroY10 <= 9.269851){
-                                                    if(fGyroY5 <= 1.162891){
-                                                        classification = DataUtils.EXIT_EVENT;
-                                                    }
-                                                    else{
-                                                        if(meanMagnetZ <= 6.757164){
-                                                            if(fRotateY12 <= 0.015579){
-                                                                if(varAccelY <= 0.004353){
-                                                                    classification = DataUtils.NO_EVENT;
-                                                                }
-                                                                else{
-                                                                    if(meanAccelY <= 0.013228){
-                                                                        classification = DataUtils.EXIT_EVENT;
-                                                                    }
-                                                                    else{
-                                                                        if(meanRotateZ <= 2.33218){
-                                                                            if(meanRotateY <= -0.032403){
-                                                                                classification = DataUtils.NO_EVENT;
-                                                                            }
-                                                                            else{
-                                                                                if(fGyroX2 <= 15.262567){
-                                                                                    classification = DataUtils.EXIT_EVENT;
-                                                                                }
-                                                                                else{
-                                                                                    if(fGyroY1 <= 89.671549){
-                                                                                        if(meanGyroX <= 0.036834){
-                                                                                            if(fAccelY14 <= 0.026822){
-                                                                                                classification = DataUtils.NO_EVENT;
-                                                                                            }
-                                                                                            else{
-                                                                                                if(fGyroZ6 <= 9.976841){
-                                                                                                    classification = DataUtils.NO_EVENT;
-                                                                                                }
-                                                                                                else{
-                                                                                                    classification = DataUtils.EXIT_EVENT;
-                                                                                                }
-                                                                                            }
-                                                                                        }
-                                                                                        else{
-                                                                                            classification = DataUtils.NO_EVENT;
-                                                                                        }
-                                                                                    }
-                                                                                    else{
-                                                                                        classification = DataUtils.NO_EVENT;
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                        else{
-                                                                            classification = DataUtils.NO_EVENT;
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                            else{
-                                                                classification = DataUtils.EXIT_EVENT;
-                                                            }
-                                                        }
-                                                        else{
-                                                            classification = DataUtils.NO_EVENT;
-                                                        }
-                                                    }
-                                                }
-                                                else{
-                                                    classification = DataUtils.NO_EVENT;
-                                                }
-                                            }
-                                        }
-                                        else{
-                                            classification = DataUtils.NO_EVENT;
-                                        }
-                                    }
-                                }
-                            }
-                            else{
-                                classification = DataUtils.EXIT_EVENT;
-                            }
-                        }
-                        else{
-                            classification = DataUtils.APPROACH_EVENT;
-                        }
-                    }
-                    else{
-                        if(varGyroX <= 0.149777){
-                            classification = DataUtils.APPROACH_EVENT;
-                        }
-                        else{
-                            if(fRotateX0 <= 12614.362017){
-                                if(fGyroZ9 <= 73.553596){
-                                    classification = DataUtils.NO_EVENT;
-                                }
-                                else{
-                                    if(varGyroZ <= 1.7321){
-                                        classification = DataUtils.APPROACH_EVENT;
-                                    }
-                                    else{
-                                        classification = DataUtils.NO_EVENT;
-                                    }
-                                }
-                            }
-                            else{
-                                classification = DataUtils.APPROACH_EVENT;
-                            }
-                        }
-                    }
-                }
+    				if(varGyroY <= 0.533124){
+    					if(fAccelZ4 <= 7.426417){
+    						if(fGyroY6 <= 38.989472){
+    							if(fAccelY5 <= 7.880753){
+    								if(meanMagnetZ <= -36.132692){
+    									if(varAccelX <= 0.006474){
+    										classification = DataUtils.EXIT_EVENT;
+    									}
+    									else{
+    										classification = DataUtils.NO_EVENT;
+    									}
+    								}
+    								else{
+    									if(meanRotateZ <= 1.303819){
+    										if(meanRotateX <= -0.723775){
+    											classification = DataUtils.EXIT_EVENT;
+    										}
+    										else{
+    											if(meanAccelX <= 0.011334){
+    												if(fGyroY1 <= 113.630038){
+    													if(fGyroX9 <= 22.992886){
+    														if(fAccelY13 <= 0.212816){
+    															if(fGyroZ5 <= 48.911185){
+    																if(fGyroX6 <= 18.336469){
+    																	classification = DataUtils.NO_EVENT;
+    																}
+    																else{
+    																	if(varGyroX <= 0.097519){
+    																		classification = DataUtils.OFF_EVENT;
+    																	}
+    																	else{
+    																		classification = DataUtils.NO_EVENT;
+    																	}
+    																}
+    															}
+    															else{
+    																classification = DataUtils.OFF_EVENT;
+    															}
+    														}
+    														else{
+    															if(varAccelY <= 0.012366){
+    																if(varAccelZ <= 0.008308){
+    																	classification = DataUtils.NO_EVENT;
+    																}
+    																else{
+    																	classification = DataUtils.OFF_EVENT;
+    																}
+    															}
+    															else{
+    																classification = DataUtils.NO_EVENT;
+    															}
+    														}
+    													}
+    													else{
+    														if(meanMagnetX <= 0.740071){
+    															classification = DataUtils.NO_EVENT;
+    														}
+    														else{
+    															classification = DataUtils.OFF_EVENT;
+    														}
+    													}
+    												}
+    												else{
+    													if(meanMagnetX <= -15.007516){
+    														classification = DataUtils.NO_EVENT;
+    													}
+    													else{
+    														if(meanRotateZ <= 0.993066){
+    															classification = DataUtils.OFF_EVENT;
+    														}
+    														else{
+    															classification = DataUtils.NO_EVENT;
+    														}
+    													}
+    												}
+    											}
+    											else{
+    												if(meanRotateX <= 0.001988){
+    													classification = DataUtils.EXIT_EVENT;
+    												}
+    												else{
+    													classification = DataUtils.NO_EVENT;
+    												}
+    											}
+    										}
+    									}
+    									else{
+    										if(varMagnetY <= 11380.590181){
+    											if(meanRotateX <= -0.057113){
+    												classification = DataUtils.EXIT_EVENT;
+    											}
+    											else{
+    												if(meanRotateY <= 0.069503){
+    													if(fGyroX2 <= 54.712983){
+    														if(fGyroX3 <= 2.738167){
+    															if(fAccelZ4 <= 0.962971){
+    																classification = DataUtils.EXIT_EVENT;
+    															}
+    															else{
+    																classification = DataUtils.NO_EVENT;
+    															}
+    														}
+    														else{
+    															if(fGyroY2 <= 97.248353){
+    																if(fAccelX14 <= 0.424812){
+    																	if(meanRotateX <= 0.027671){
+    																		if(varMagnetX <= 6.954143){
+    																			classification = DataUtils.NO_EVENT;
+    																		}
+    																		else{
+    																			if(varGyroX <= 0.206558){
+    																				classification = DataUtils.EXIT_EVENT;
+    																			}
+    																			else{
+    																				classification = DataUtils.NO_EVENT;
+    																			}
+    																		}
+    																	}
+    																	else{
+    																		if(meanMagnetZ <= 6.108268){
+    																			classification = DataUtils.NO_EVENT;
+    																		}
+    																		else{
+    																			classification = DataUtils.EXIT_EVENT;
+    																		}
+    																	}
+    																}
+    																else{
+    																	classification = DataUtils.EXIT_EVENT;
+    																}
+    															}
+    															else{
+    																classification = DataUtils.EXIT_EVENT;
+    															}
+    														}
+    													}
+    													else{
+    														classification = DataUtils.NO_EVENT;
+    													}
+    												}
+    												else{
+    													classification = DataUtils.NO_EVENT;
+    												}
+    											}
+    										}
+    										else{
+    											classification = DataUtils.EXIT_EVENT;
+    										}
+    									}
+    								}
+    							}
+    							else{
+    								classification = DataUtils.EXIT_EVENT;
+    							}
+    						}
+    						else{
+    							if(fGyroX6 <= 13.697814){
+    								classification = DataUtils.ON_EVENT;
+    							}
+    							else{
+    								classification = DataUtils.NO_EVENT;
+    							}
+    						}
+    					}
+    					else{
+    						classification = DataUtils.APPROACH_EVENT;
+    					}
+    				}
+    				else{
+    					if(varGyroX <= 0.149777){
+    						classification = DataUtils.APPROACH_EVENT;
+    					}
+    					else{
+    						if(fRotateX0 <= 12614.362017){
+    							if(fGyroZ9 <= 73.553596){
+    								if(meanAccelZ <= -0.174145){
+    									if(fGyroX3 <= 64.339329){
+    										classification = DataUtils.ENTER_EVENT;
+    									}
+    									else{
+    										classification = DataUtils.NO_EVENT;
+    									}
+    								}
+    								else{
+    									if(varAccelX <= 0.411635){
+    										classification = DataUtils.NO_EVENT;
+    									}
+    									else{
+    										if(meanRotateX <= 1.490278){
+    											classification = DataUtils.EXIT_EVENT;
+    										}
+    										else{
+    											classification = DataUtils.NO_EVENT;
+    										}
+    									}
+    								}
+    							}
+    							else{
+    								if(varGyroZ <= 1.7321){
+    									classification = DataUtils.APPROACH_EVENT;
+    								}
+    								else{
+    									classification = DataUtils.NO_EVENT;
+    								}
+    							}
+    						}
+    						else{
+    							if(meanMagnetY <= 49.744624){
+    								classification = DataUtils.NO_EVENT;
+    							}
+    							else{
+    								classification = DataUtils.APPROACH_EVENT;
+    							}
+    						}
+    					}
+    				}
+    			}
+
     	
     	return classification;
     }

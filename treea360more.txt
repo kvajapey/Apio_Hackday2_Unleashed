@@ -1,0 +1,444 @@
+    public static String Classify(double meanAccelX, double meanAccelY, double meanAccelZ,
+    							  double meanGyroX, double meanGyroY, double meanGyroZ,
+    							  double meanMagnetX,double meanMagnetY, double meanMagnetZ, 
+    							  double meanRotateX, double meanRotateY, double meanRotateZ, 
+                                  double fAccelX2, double fAccelX14, double fAccelX15,
+                                  double fAccelY1, double fAccelY2, double fAccelY5, double fAccelY7, double fAccelY13, double fAccelY14,
+                                  double fAccelZ3, double fAccelZ4, double fAccelZ6, double fAccelZ13,
+                                  double fGyroX1, double fGyroX2, double fGyroX3, double fGyroX4, double fGyroX5, double fGyroX6, 
+                                  double fGyroX9, double fGyroX12,
+                                  double fGyroY0, double fGyroY1, double fGyroY2, double fGyroY5, double fGyroY6, double fGyroY10,
+                                  double fGyroZ0, double fGyroZ3, double fGyroZ5, double fGyroZ6, double fGyroZ9,
+                                  double fMagnetX0, double fMagnetZ7,
+                                  double fRotateX0, double fRotateY12, double fRotateZ0, double fRotateZ15,
+                                  double varAccelX, double varAccelY, double varAccelZ, 
+                                  double varGyroX, double varGyroY, double varGyroZ, 
+                                  double varMagnetX, double varMagnetY, double varMagnetZ,
+                                  double varRotateX, double varRotateY, double varRotateZ){
+    	
+    	String classification = "";
+
+		if(meanGyroZ <= 0.117577){
+			if(varMagnetY <= 2.865007){
+				if(fGyroX1 <= 97.643965){
+					if(fGyroY6 <= 115.269621){
+						if(fMagnetZ7 <= 44.9855){
+							classification = DataUtils.NO_EVENT;
+						}
+						else{
+							if(meanRotateX <= 0.017741){
+								classification = DataUtils.NO_EVENT;
+							}
+							else{
+								if(meanGyroZ <= -0.012032){
+									if(fGyroZ3 <= 3.528337){
+										classification = DataUtils.NO_EVENT;
+									}
+									else{
+										if(varGyroZ <= 0.053864){
+											classification = DataUtils.APPROACH_EVENT;
+										}
+										else{
+											classification = DataUtils.NO_EVENT;
+										}
+									}
+								}
+								else{
+									classification = DataUtils.NO_EVENT;
+								}
+							}
+						}
+					}
+					else{
+						classification = DataUtils.ENTER_EVENT;
+					}
+				}
+				else{
+					if(varGyroX <= 0.307116){
+						if(fGyroX3 <= 59.495213){
+							classification = DataUtils.APPROACH_EVENT;
+						}
+						else{
+							classification = DataUtils.NO_EVENT;
+						}
+					}
+					else{
+						classification = DataUtils.NO_EVENT;
+					}
+				}
+			}
+			else{
+				if(meanRotateZ <= 0.10327){
+					if(varAccelX <= 0.026515){
+						if(varMagnetX <= 137.851746){
+							if(fGyroX6 <= 76.435696){
+								if(meanAccelZ <= 0.104841){
+									if(varGyroZ <= 0.017856){
+										if(fMagnetX0 <= 65.174561){
+											classification = DataUtils.ON_EVENT;
+										}
+										else{
+											classification = DataUtils.NO_EVENT;
+										}
+									}
+									else{
+										if(fAccelX15 <= 0.640613){
+											if(meanRotateY <= -0.053867){
+												if(fGyroY2 <= 1.271163){
+													classification = DataUtils.ENTER_EVENT;
+												}
+												else{
+													if(meanMagnetY <= -5.79294){
+														classification = DataUtils.NO_EVENT;
+													}
+													else{
+														if(fGyroZ3 <= 18.328693){
+															classification = DataUtils.ENTER_EVENT;
+														}
+														else{
+															classification = DataUtils.NO_EVENT;
+														}
+													}
+												}
+											}
+											else{
+												if(fAccelX2 <= 7.080237){
+													if(fAccelY7 <= 1.625384){
+														if(meanAccelX <= -0.010972){
+															if(meanGyroZ <= -0.093689){
+																classification = DataUtils.APPROACH_EVENT;
+															}
+															else{
+																if(fGyroZ6 <= 12.855233){
+																	if(fAccelY2 <= 0.494162){
+																		classification = DataUtils.NO_EVENT;
+																	}
+																	else{
+																		if(varRotateY <= 0.001109){
+																			classification = DataUtils.APPROACH_EVENT;
+																		}
+																		else{
+																			classification = DataUtils.NO_EVENT;
+																		}
+																	}
+																}
+																else{
+																	classification = DataUtils.APPROACH_EVENT;
+																}
+															}
+														}
+														else{
+															if(fAccelZ13 <= 0.522165){
+																if(meanMagnetX <= -14.69224){
+																	if(fGyroY0 <= 28.233161){
+																		classification = DataUtils.APPROACH_EVENT;
+																	}
+																	else{
+																		classification = DataUtils.NO_EVENT;
+																	}
+																}
+																else{
+																	if(meanRotateY <= 0.062831){
+																		if(meanMagnetX <= 5.188278){
+																			if(meanRotateZ <= -0.193153){
+																				if(varRotateY <= 0.001111){
+																					classification = DataUtils.APPROACH_EVENT;
+																				}
+																				else{
+																					classification = DataUtils.NO_EVENT;
+																				}
+																			}
+																			else{
+																				classification = DataUtils.NO_EVENT;
+																			}
+																		}
+																		else{
+																			classification = DataUtils.APPROACH_EVENT;
+																		}
+																	}
+																	else{
+																		classification = DataUtils.NO_EVENT;
+																	}
+																}
+															}
+															else{
+																if(fGyroX3 <= 42.258083){
+																	if(fAccelY1 <= 0.618629){
+																		classification = DataUtils.NO_EVENT;
+																	}
+																	else{
+																		classification = DataUtils.ENTER_EVENT;
+																	}
+																}
+																else{
+																	classification = DataUtils.NO_EVENT;
+																}
+															}
+														}
+													}
+													else{
+														if(meanRotateY <= 0.042794){
+															classification = DataUtils.NO_EVENT;
+														}
+														else{
+															classification = DataUtils.ENTER_EVENT;
+														}
+													}
+												}
+												else{
+													classification = DataUtils.APPROACH_EVENT;
+												}
+											}
+										}
+										else{
+											if(fGyroX5 <= 2.368408){
+												classification = DataUtils.APPROACH_EVENT;
+											}
+											else{
+												classification = DataUtils.NO_EVENT;
+											}
+										}
+									}
+								}
+								else{
+									if(fRotateZ0 <= 0.972155){
+										classification = DataUtils.NO_EVENT;
+									}
+									else{
+										classification = DataUtils.APPROACH_EVENT;
+									}
+								}
+							}
+							else{
+								if(fAccelX14 <= 0.050679){
+									classification = DataUtils.APPROACH_EVENT;
+								}
+								else{
+									classification = DataUtils.NO_EVENT;
+								}
+							}
+						}
+						if(varMagnetX > 137.851746){
+							if(fRotateZ0 <= 186.122726){
+								classification = DataUtils.OFF_EVENT;
+							}
+							else{
+								classification = DataUtils.NO_EVENT;
+							}
+						}
+					}
+					else{
+						classification = DataUtils.NO_EVENT;
+					}
+				}
+				else{
+					if(fGyroX4 <= 502.655959){
+						if(fAccelZ3 <= 56.652309){
+							if(meanGyroZ <= -0.395847){
+								if(meanRotateY <= 0.758378){
+									classification = DataUtils.NO_EVENT;
+								}
+								else{
+									classification = DataUtils.EXIT_EVENT;
+								}
+							}
+							else{
+								if(fAccelY5 <= 0.000188){
+									classification = DataUtils.ON_EVENT;
+								}
+								else{
+									if(meanMagnetZ <= 31.153382){
+										classification = DataUtils.NO_EVENT;
+									}
+									else{
+										if(meanMagnetY <= 5.669259){
+											classification = DataUtils.NO_EVENT;
+										}
+										else{
+											classification = DataUtils.OFF_EVENT;
+										}
+									}
+								}
+							}
+						}
+						else{
+							classification = DataUtils.OFF_EVENT;
+						}
+					}
+					else{
+						classification = DataUtils.EXIT_EVENT;
+					}
+				}
+			}
+		}
+		else{
+            if(varGyroY <= 0.533124){
+                if(fAccelZ4 <= 7.426417){
+                    if(fAccelY5 <= 7.880753){
+                        if(meanAccelY <= -0.015234){
+                            classification = DataUtils.NO_EVENT;
+                        }
+                        else{
+                            if(meanRotateZ <= 1.096872){
+                                if(meanRotateX <= -0.438397){
+                                    classification = DataUtils.EXIT_EVENT;
+                                }
+                                else{
+                                    if(fGyroY10 <= 22.729749){
+                                        if(fGyroY1 <= 137.666457){
+                                            if(fGyroX9 <= 28.947785){
+                                                if(fAccelY13 <= 0.213913){
+                                                    if(fAccelZ6 <= 1.673829){
+                                                        classification = DataUtils.NO_EVENT;
+                                                    }
+                                                    else{
+                                                        if(fGyroX12 <= 0.284645){
+                                                            classification = DataUtils.OFF_EVENT;
+                                                        }
+                                                        else{
+                                                            classification = DataUtils.NO_EVENT;
+                                                        }
+                                                    }
+                                                }
+                                                else{
+                                                    if(varAccelY <= 0.012366){
+                                                        if(fGyroZ0 <= 73.644973){
+                                                            classification = DataUtils.OFF_EVENT;
+                                                        }
+                                                        else{
+                                                            classification = DataUtils.NO_EVENT;
+                                                        }
+                                                    }
+                                                    else{
+                                                        classification = DataUtils.NO_EVENT;
+                                                    }
+                                                }
+                                            }
+                                            else{
+                                                classification = DataUtils.OFF_EVENT;
+                                            }
+                                        }
+                                        else{
+                                            classification = DataUtils.OFF_EVENT;
+                                        }
+                                    }
+                                    else{
+                                        classification = DataUtils.OFF_EVENT;
+                                    }
+                                }
+                            }
+                            else{
+                                if(fGyroZ5 <= 39.587984){
+                                    if(fRotateZ15 <= 0.083409){
+                                        classification = DataUtils.NO_EVENT;
+                                    }
+                                    else{
+                                        if(fGyroY10 <= 9.269851){
+                                            if(fGyroY5 <= 1.162891){
+                                                classification = DataUtils.EXIT_EVENT;
+                                            }
+                                            else{
+                                                if(meanMagnetZ <= 6.757164){
+                                                    if(fRotateY12 <= 0.015579){
+                                                        if(varAccelY <= 0.004353){
+                                                            classification = DataUtils.NO_EVENT;
+                                                        }
+                                                        else{
+                                                            if(meanAccelY <= 0.013228){
+                                                                classification = DataUtils.EXIT_EVENT;
+                                                            }
+                                                            else{
+                                                                if(meanRotateZ <= 2.33218){
+                                                                    if(meanRotateY <= -0.032403){
+                                                                        classification = DataUtils.NO_EVENT;
+                                                                    }
+                                                                    else{
+                                                                        if(fGyroX2 <= 15.262567){
+                                                                            classification = DataUtils.EXIT_EVENT;
+                                                                        }
+                                                                        else{
+                                                                            if(fGyroY1 <= 89.671549){
+                                                                                if(meanGyroX <= 0.036834){
+                                                                                    if(fAccelY14 <= 0.026822){
+                                                                                        classification = DataUtils.NO_EVENT;
+                                                                                    }
+                                                                                    else{
+                                                                                        if(fGyroZ6 <= 9.976841){
+                                                                                            classification = DataUtils.NO_EVENT;
+                                                                                        }
+                                                                                        else{
+                                                                                            classification = DataUtils.EXIT_EVENT;
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                                else{
+                                                                                    classification = DataUtils.NO_EVENT;
+                                                                                }
+                                                                            }
+                                                                            else{
+                                                                                classification = DataUtils.NO_EVENT;
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                                else{
+                                                                    classification = DataUtils.NO_EVENT;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                    else{
+                                                        classification = DataUtils.EXIT_EVENT;
+                                                    }
+                                                }
+                                                else{
+                                                    classification = DataUtils.NO_EVENT;
+                                                }
+                                            }
+                                        }
+                                        else{
+                                            classification = DataUtils.NO_EVENT;
+                                        }
+                                    }
+                                }
+                                else{
+                                    classification = DataUtils.NO_EVENT;
+                                }
+                            }
+                        }
+                    }
+                    else{
+                        classification = DataUtils.EXIT_EVENT;
+                    }
+                }
+                else{
+                    classification = DataUtils.APPROACH_EVENT;
+                }
+            }
+            else{
+                if(varGyroX <= 0.149777){
+                    classification = DataUtils.APPROACH_EVENT;
+                }
+                else{
+                    if(fRotateX0 <= 12614.362017){
+                        if(fGyroZ9 <= 73.553596){
+                            classification = DataUtils.NO_EVENT;
+                        }
+                        else{
+                            if(varGyroZ <= 1.7321){
+                                classification = DataUtils.APPROACH_EVENT;
+                            }
+                            else{
+                                classification = DataUtils.NO_EVENT;
+                            }
+                        }
+                    }
+                    else{
+                        classification = DataUtils.APPROACH_EVENT;
+                    }
+                }
+            }
+        }
+
+    	return classification;
+    }

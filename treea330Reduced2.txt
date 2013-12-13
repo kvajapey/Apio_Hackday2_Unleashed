@@ -1,0 +1,473 @@
+    public static String Classify(double meanAccelX, double meanAccelY, double meanAccelZ,
+    							  double meanGyroX, double meanGyroY, double meanGyroZ,
+    							  double meanMagnetX,double meanMagnetY, double meanMagnetZ, 
+    							  double meanRotateX, double meanRotateY, double meanRotateZ, 
+                                  double fAccelX4, double fAccelX12, double fAccelX14,
+                                  double fAccelY0, double fAccelY5, double fAccelY14,
+                                  double fAccelZ1, double fAccelZ2, double fAccelZ10,
+                                  double fGyroX3, double fGyroX4, double fGyroX5, double fGyroX6, double fGyroX7, double fGyroX9,
+                                  double fGyroY2, double fGyroY3, double fGyroY4, double fGyroY5, double fGyroY6, double fGyroY7,
+                                  double fGyroZ1, double fGyroZ6, double fGyroZ9,
+                                  double fMagnetY6, 
+                                  double fRotateY15,
+                                  double varAccelX, double varAccelY, double varAccelZ, 
+                                  double varGyroX, double varGyroY, double varGyroZ, 
+                                  double varMagnetX, double varMagnetY, double varMagnetZ,
+                                  double varRotateX, double varRotateY, double varRotateZ){
+    	
+    	String classification = "";
+
+    			if(meanGyroZ <= 0.120001){
+					if(meanAccelX <= -0.016144){
+						if(meanGyroZ <= -0.078047){
+							classification = DataUtils.APPROACH_EVENT;
+						}
+						else{
+							if(meanAccelZ <= 0.077496){
+								if(fGyroY6 <= 42.186772){
+									if(fAccelY0 <= 1.490388){
+										classification = DataUtils.NO_EVENT;
+									}
+									else{
+										if(fGyroY4 <= 7.248862){
+											classification = DataUtils.NO_EVENT;
+										}
+										else{
+											classification = DataUtils.APPROACH_EVENT;
+										}
+									}
+								}
+								else{
+									classification = DataUtils.APPROACH_EVENT;
+								}
+							}
+							else{
+								classification = DataUtils.APPROACH_EVENT;
+							}
+						}
+					}
+					else{
+						if(varGyroZ <= 0.140113){
+							if(meanGyroY <= 0.066338){
+								if(varMagnetZ <= 4.061902){
+									if(meanRotateY <= -0.090079){
+										classification = DataUtils.ENTER_EVENT;
+									}
+									else{
+										if(fGyroX7 <= 48.824662){
+											if(meanMagnetY <= 30.113415){
+												if(varGyroY <= 0.014537){
+													if(varMagnetX <= 15.650584){
+														if(fAccelX4 <= 0.211073){
+															if(fGyroZ1 <= 11.194088){
+																if(meanMagnetZ <= 2.858685){
+																	classification = DataUtils.NO_EVENT;
+																}
+																else{
+																	if(varGyroX <= 0.000398){
+																		classification = DataUtils.ON_EVENT;
+																	}
+																	else{
+																		classification = DataUtils.NO_EVENT;
+																	}
+																}
+															}
+															else{
+																if(meanMagnetX <= 3.153319){
+																	classification = DataUtils.NO_EVENT;
+																}
+																else{
+																	classification = DataUtils.ON_EVENT;
+																}
+															}
+														}
+														else{
+															if(meanMagnetY <= -32.475983){
+																classification = DataUtils.ON_EVENT;
+															}
+															else{
+																classification = DataUtils.NO_EVENT;
+															}
+														}
+													}
+													else{
+														classification = DataUtils.NO_EVENT;
+													}
+												}
+												else{
+													if(meanRotateZ <= -0.187281){
+														if(meanMagnetZ <= -20.905001){
+															if(meanMagnetY <= 17.902888){
+																classification = DataUtils.NO_EVENT;
+															}
+															else{
+																classification = DataUtils.APPROACH_EVENT;
+															}
+														}
+														else{
+															classification = DataUtils.NO_EVENT;
+														}
+													}
+													else{
+														classification = DataUtils.NO_EVENT;
+													}
+												}
+											}
+											else{
+												if(fGyroY3 <= 18.386221){
+													if(meanRotateZ <= -0.203649){
+														classification = DataUtils.NO_EVENT;
+													}
+													else{
+														classification = DataUtils.ENTER_EVENT;
+													}
+												}
+												else{
+													classification = DataUtils.ON_EVENT;
+												}
+											}
+										}
+										else{
+											classification = DataUtils.ON_EVENT;
+										}
+									}
+								}
+								else{
+									if(fGyroX3 <= 124.310286){
+										if(varMagnetX <= 0.551662){
+											if(meanMagnetX <= 3.387007){
+												classification = DataUtils.NO_EVENT;
+											}
+											else{
+												classification = DataUtils.ON_EVENT;
+											}
+										}
+										else{
+											if(meanGyroY <= -0.049192){
+												if(varAccelZ <= 0.005366){
+													if(varGyroZ <= 0.061243){
+														classification = DataUtils.ENTER_EVENT;
+													}
+													else{
+														classification = DataUtils.NO_EVENT;
+													}
+												}
+												else{
+													if(fGyroY2 <= 11.287907){
+														classification = DataUtils.APPROACH_EVENT;
+													}
+													else{
+														classification = DataUtils.NO_EVENT;
+													}
+												}
+											}
+											else{
+												if(meanRotateZ <= -0.176669){
+													if(meanMagnetZ <= -15.003074){
+														if(varMagnetY <= 38.769068){
+															if(meanMagnetY <= -20.537115){
+																classification = DataUtils.NO_EVENT;
+															}
+															else{
+																if(fGyroY6 <= 9.949462){
+																	if(fGyroX5 <= 1.039524){
+																		classification = DataUtils.NO_EVENT;
+																	}
+																	else{
+																		classification = DataUtils.APPROACH_EVENT;
+																	}
+																}
+																else{
+																	classification = DataUtils.NO_EVENT;
+																}
+															}
+														}
+														else{
+															classification = DataUtils.NO_EVENT;
+														}
+													}
+													else{
+														if(meanAccelZ <= 0.143442){
+															classification = DataUtils.NO_EVENT;
+														}
+														else{
+															if(varAccelY <= 0.014399){
+																classification = DataUtils.APPROACH_EVENT;
+															}
+															else{
+																classification = DataUtils.NO_EVENT;
+															}
+														}
+													}
+												}
+												else{
+													if(meanRotateY <= 0.142281){
+														if(fMagnetY6 <= 0.746977){
+															if(varRotateY <= 0.00089){
+																classification = DataUtils.NO_EVENT;
+															}
+															else{
+																classification = DataUtils.ENTER_EVENT;
+															}
+														}
+														else{
+															classification = DataUtils.NO_EVENT;
+														}
+													}
+													else{
+														if(meanMagnetZ <= -33.468714){
+															classification = DataUtils.NO_EVENT;
+														}
+														else{
+															classification = DataUtils.APPROACH_EVENT;
+														}
+													}
+												}
+											}
+										}
+									}
+									else{
+										if(fGyroX5 <= 1.9027){
+											classification = DataUtils.ON_EVENT;
+										}
+										else{
+											classification = DataUtils.NO_EVENT;
+										}
+									}
+								}
+							}
+							else{
+								if(varRotateZ <= 0.001141){
+									if(varRotateZ <= 0.000787){
+										classification = DataUtils.NO_EVENT;
+									}
+									else{
+										classification = DataUtils.ON_EVENT;
+									}
+								}
+								else{
+									if(fMagnetY6 <= 52.956183){
+										classification = DataUtils.NO_EVENT;
+									}
+									else{
+										if(meanRotateY <= 0.944461){
+											classification = DataUtils.NO_EVENT;
+										}
+										else{
+											classification = DataUtils.EXIT_EVENT;
+										}
+									}
+								}
+							}
+						}
+						else{
+							if(varRotateX <= 0.424688){
+								if(fGyroX4 <= 206.970507){
+									if(fGyroY6 <= 107.099033){
+										if(fGyroX7 <= 46.952133){
+											if(meanMagnetZ <= -26.034245){
+												if(fGyroY6 <= 35.585508){
+													if(meanMagnetY <= -9.436023){
+														classification = DataUtils.NO_EVENT;
+													}
+													else{
+														classification = DataUtils.APPROACH_EVENT;
+													}
+												}
+												else{
+													classification = DataUtils.APPROACH_EVENT;
+												}
+											}
+											else{
+												if(fGyroY7 <= 67.951096){
+													if(varRotateY <= 0.0213){
+														if(varAccelZ <= 0.007593){
+															classification = DataUtils.ENTER_EVENT;
+														}
+														else{
+															if(meanRotateX <= 0.010259){
+																if(varGyroX <= 0.158263){
+																	classification = DataUtils.ENTER_EVENT;
+																}
+																else{
+																	if(fGyroX4 <= 24.627229){
+																		classification = DataUtils.ENTER_EVENT;
+																	}
+																	else{
+																		classification = DataUtils.NO_EVENT;
+																	}
+																}
+															}
+															else{
+																classification = DataUtils.NO_EVENT;
+															}
+														}
+													}
+													else{
+														classification = DataUtils.ENTER_EVENT;
+													}
+												}
+												else{
+													classification = DataUtils.APPROACH_EVENT;
+												}
+											}
+										}
+										else{
+											if(varRotateY <= 0.002872){
+												classification = DataUtils.APPROACH_EVENT;
+											}
+											else{
+												classification = DataUtils.NO_EVENT;
+											}
+										}
+									}
+									else{
+										classification = DataUtils.ENTER_EVENT;
+									}
+								}
+								else{
+									if(fGyroY5 <= 15.717066){
+										classification = DataUtils.ON_EVENT;
+									}
+									else{
+										classification = DataUtils.NO_EVENT;
+									}
+								}
+							}
+							else{
+								classification = DataUtils.OFF_EVENT;
+							}
+						}
+					}
+    			}
+    			else{
+    				if(meanAccelY <= -0.01497){
+    					if(fGyroY2 <= 35.630146){
+    						classification = DataUtils.NO_EVENT;
+    					}
+    					else{
+    						classification = DataUtils.ON_EVENT;
+    					}
+    				}
+    				else{
+    					if(meanRotateZ <= 1.044205){
+    						if(fGyroZ6 <= 17.169328){
+    							if(fAccelZ1 <= 22.237641){
+    								if(fAccelY5 <= 1.020127){
+    									if(meanMagnetX <= -0.329568){
+    										classification = DataUtils.NO_EVENT;
+    									}
+    									else{
+    										if(fAccelZ10 <= 0.861098){
+    											if(varGyroZ <= 0.134637){
+    												classification = DataUtils.NO_EVENT;
+    											}
+    											else{
+    												if(varAccelX <= 0.004638){
+    													classification = DataUtils.OFF_EVENT;
+    												}
+    												else{
+    													if(meanGyroX <= 0.024327){
+    														classification = DataUtils.NO_EVENT;
+    													}
+    													else{
+    														classification = DataUtils.OFF_EVENT;
+    													}
+    												}
+    											}
+    										}
+    										else{
+    											classification = DataUtils.OFF_EVENT;
+    										}
+    									}
+    								}
+    								else{
+    									if(meanGyroZ <= 0.535033){
+    										if(meanRotateX <= -0.011753){
+    											classification = DataUtils.NO_EVENT;
+    										}
+    										else{
+    											classification = DataUtils.OFF_EVENT;
+    										}
+    									}
+    									else{
+    										classification = DataUtils.NO_EVENT;
+    									}
+    								}
+    							}
+    							else{
+    								classification = DataUtils.OFF_EVENT;
+    							}
+    						}
+    						else{
+    							if(fGyroZ9 <= 12.767469){
+    								classification = DataUtils.NO_EVENT;
+    							}
+    							else{
+    								classification = DataUtils.OFF_EVENT;
+    							}
+    						}
+    					}
+    					else{
+    						if(fAccelY14 <= 0.291332){
+    							if(varMagnetY <= 11380.590181){
+    								if(meanMagnetZ <= -34.215605){
+    									classification = DataUtils.EXIT_EVENT;
+    								}
+    								else{
+    									if(meanRotateX <= -0.057481){
+    										classification = DataUtils.EXIT_EVENT;
+    									}
+    									else{
+    										if(meanMagnetX <= -15.604019){
+    											classification = DataUtils.EXIT_EVENT;
+    										}
+    										else{
+    											if(fAccelX14 <= 0.420162){
+    												if(varAccelX <= 0.004084){
+    													if(varMagnetX <= 6.756025){
+    														classification = DataUtils.NO_EVENT;
+    													}
+    													else{
+    														if(meanGyroZ <= 0.294026){
+    															classification = DataUtils.NO_EVENT;
+    														}
+    														else{
+    															classification = DataUtils.EXIT_EVENT;
+    														}
+    													}
+    												}
+    												else{
+    													classification = DataUtils.NO_EVENT;
+    												}
+    											}
+    											else{
+    												if(fGyroY7 <= 20.184595){
+    													classification = DataUtils.NO_EVENT;
+    												}
+    												else{
+    													classification = DataUtils.EXIT_EVENT;
+    												}
+    											}
+    										}
+    									}
+    								}
+    							}
+    							else{
+    								classification = DataUtils.EXIT_EVENT;
+    							}
+    						}
+    						else{
+    							if(fAccelX12 <= 0.423726){
+    								classification = DataUtils.NO_EVENT;
+    							}
+    							else{
+    								classification = DataUtils.OFF_EVENT;
+    							}
+    						}
+    					}
+    				}
+    			}
+
+    	return classification;
+    }
