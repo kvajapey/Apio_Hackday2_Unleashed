@@ -91,10 +91,10 @@ public class TestFileClassifier {
                     dataProcessor.runProcessor(folderName + "/" + fileName);
 
                     if(dataProcessor.getClassification()){
-                        goodWr.append(fileName);
+                        goodWr.append(fileName + "\n");
                     }
                     else{
-                        badWr.append(fileName);
+                        badWr.append(fileName + "\n");
                     }
 
                 }
